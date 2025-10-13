@@ -1,0 +1,37 @@
+@model IEnumerable<AdminPortal.ViewModels.QuestionWithAnswersVm>
+@{
+    ViewData["Title"] = "Thêm câu hỏi";
+    Layout = "_Layout";
+    var score = (bool)(ViewBag.Score ?? false);
+}
+
+@section Styles { <link rel="stylesheet" href="~/css/add_questions.css" asp-append-version="true" /> }
+
+<h1 class="page-title">Thêm câu hỏi</h1>
+
+<div class="aq-wrap">
+  <div class="aq-toolbar">
+    <div class="aq-tabs">
+      <a asp-controller="Home" asp-action="AddQuestion" asp-route-score="false" class="aq-tab @(score ? "" : "is-active")">Câu hỏi <strong>không tính điểm</strong></a>
+      <a asp-controller="Home" asp-action="AddQuestion" asp-route-score="true" class="aq-tab @(score ? "is-active" : "")">Câu hỏi <strong>tính điểm</strong></a>
+    </div>
+    <div class="aq-note">
+      @if (!score) { <span>Đang xem các câu hỏi thuộc bộ <b>không tính điểm</b>.</span> }
+      else { <span>Đang xem các câu hỏi thuộc bộ <b>tính điểm</b>.</span> }
+    </div>
+  </div>
+
+  @if (!score)
+  {
+    <partial name="~/Views/Home/Manage_Add_Questions/_AddQuestionNoScored.cshtml" model="Model" />
+  }
+  else
+  {
+    <partial name="~/Views/Home/Manage_Add_Questions/_AddQuestionScored.cshtml" model="Model" />
+  }
+
+</div>
+
+@section Scripts {
+  <script src="~/js/add_questions.js" asp-append-version="true"></script>
+}

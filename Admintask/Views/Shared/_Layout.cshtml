@@ -1,0 +1,96 @@
+﻿@{
+    Layout = null;
+    var pageTitle = ViewData["Title"] as string ?? "Quản lý câu hỏi";
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@pageTitle</title>
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @* View nào có @section Styles thì sẽ được chèn ở đây *@
+    @RenderSection("Styles", required: false)
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        @await Html.PartialAsync("_Sidebar")
+        <main class="main">
+            <header class="topbar">
+                <button class="hamburger" id="btnMenu" aria-label="Toggle menu">☰</button>
+                    <div class="searchbox">
+                        <input type="text" id="searchInput" placeholder="Search..." />
+                        <span class="search-icon">🔎</span>
+                    </div>
+            </header>
+
+            <section class="content">
+                @RenderBody()
+            </section>
+        </main>
+    </div>
+
+    <script>
+    // Toggle sidebar
+    const btn = document.getElementById('btnMenu');
+    const sidebar = document.querySelector('.sidebar');
+    btn?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+        if (!sidebar?.classList.contains('open')) return;
+        if (!sidebar.contains(e.target) && !btn.contains(e.target)) sidebar.classList.remove('open');
+    });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 992) sidebar?.classList.remove('open'); });
+
+    // 🔍 Search filter (client-side) — hoạt động theo trang đang mở
+    const searchInput = document.getElementById("searchInput");
+    const searchIcon  = document.querySelector(".search-icon");
+
+    function filterCurrentPage(keyword) {
+        const q = (keyword || "").toLowerCase().trim();
+
+        // 1) Trang Manage_Questions: thẻ .q-card
+        const cards = document.querySelectorAll(".q-list .q-card");
+        if (cards.length > 0) {
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(q) ? "" : "none";
+            });
+            return;
+        }
+
+        // 2) Trang AddQuestion: bảng .aq-table
+        const aqRows = document.querySelectorAll(".aq-table tbody tr");
+        if (aqRows.length > 0) {
+            aqRows.forEach(row => {
+                // giữ nguyên các hàng header theo bộ câu hỏi và form thêm mới
+                if (row.classList.contains("aq-set-row") || row.classList.contains("aq-new-byset")) {
+                    row.style.display = "";
+                    return;
+                }
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(q) ? "" : "none";
+            });
+            return;
+        }
+
+        // 3) Fallback: ẩn/hiện tất cả dòng bảng trong nội dung
+        const fallbacks = document.querySelectorAll(".content table tbody tr");
+        fallbacks.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(q) ? "" : "none";
+        });
+    }
+
+    searchInput?.addEventListener("input", function(){
+        filterCurrentPage(this.value);
+    });
+    searchIcon?.addEventListener("click", () => searchInput?.focus());
+</script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

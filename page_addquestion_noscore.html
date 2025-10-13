@@ -1,0 +1,2435 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Th&#xEA;m c&#xE2;u h&#x1ECF;i</title>
+
+    <link rel="stylesheet" href="/css/site.css?v=6nntBpGIHuvNV8EfNHJLcZbDOssMJdokr3viDKv6Y-s" />
+     <link rel="stylesheet" href="/css/add_questions.css?v=-CWBw1kdF545Bt03NKAyvCLQNNcWU1_YQz0XK3jeSPk" /> 
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+    <div class="brand">
+        <div class="avatar">A</div>
+        <div class="brand-info">
+            <div class="brand-title">App Kinh Nguyệt</div>
+            <div class="brand-sub">Admin</div>
+        </div>
+    </div>
+
+    <div class="menu-label">MENU</div>
+    <nav class="menu">
+        <a class="menu-item " href="/">
+            <span class="dot">◉</span> Quản lý câu hỏi
+        </a>
+        <a class="menu-item active" href="/Home/AddQuestion">
+            <span class="dot">▣</span> Thêm câu hỏi
+        </a>
+        <a class="menu-item " href="/question-set">
+            <span class="dot">▤</span> Thêm bộ câu hỏi
+        </a>
+    </nav>
+</aside>
+
+        <main class="main">
+            <header class="topbar">
+                <button class="hamburger" id="btnMenu" aria-label="Toggle menu">☰</button>
+                    <div class="searchbox">
+                        <input type="text" id="searchInput" placeholder="Search..." />
+                        <span class="search-icon">🔎</span>
+                    </div>
+            </header>
+
+            <section class="content">
+                
+
+<h1 class="page-title">Thêm câu hỏi</h1>
+
+<div class="aq-wrap">
+  <div class="aq-toolbar">
+    <div class="aq-tabs">
+      <a class="aq-tab is-active" href="/Home/AddQuestion?score=false">Câu hỏi <strong>không tính điểm</strong></a>
+      <a class="aq-tab " href="/Home/AddQuestion?score=true">Câu hỏi <strong>tính điểm</strong></a>
+    </div>
+    <div class="aq-note">
+ <span>Đang xem các câu hỏi thuộc bộ <b>không tính điểm</b>.</span>     </div>
+  </div>
+
+    
+<div class="aq-table-wrap">
+  <table class="aq-table">
+    <thead>
+      <tr>
+        <th style="width:72px">STT</th>
+        <th>Thuộc bộ câu hỏi</th>
+        <th>Nội dung</th>
+        <th style="width:120px">Loại</th>
+        <th class="text-center" style="width:200px">Hành động</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        <tr id="set-1" class="aq-set-row">
+          <td class="aq-set-stt">
+            <span class="aq-set-badge">Bộ câu hỏi ID: 1</span>
+          </td>
+          <td class="aq-set-remain"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-actions">
+              <button type="button" class="aq-add-btn aq-add-byset" data-set="1">
+                <img src="/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+              </button>
+          </td>
+        </tr>
+        <!-- Hàng form thêm mới (ẩn/hiện bằng nút trên) -->
+        <tr id="aq-new-row-1" class="aq-new-byset" style="display:none;">
+          <td class="aq-stt">—</td>
+          <td class="aq-set">Bộ (ID): 1</td>
+          <td class="aq-text">
+            <form id="aqNewForm-1" method="post" class="qs-inline" action="/Home/CreateQuestion?score=false">
+              
+              <input type="hidden" name="questionSetId" value="1" />
+              <input type="text" name="text" class="qs-input" placeholder="Nội dung câu hỏi..." required  />
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+          </td>
+          <td class="aq-type">
+            <select form="aqNewForm-1" name="type" class="qs-input" >
+              <option value="single">single</option>
+              <option value="multiple">multiple</option>
+              <option value="text">text</option>
+            </select>
+          </td>
+          <td class="qs-actions">
+            <button form="aqNewForm-1" type="submit" class="qs-icon btn-save" title="Lưu" >
+              <img src="/icons/accept.png" class="qs-icon-img" alt="Save" />
+            </button>
+            <button type="button" class="qs-icon btn-cancel aqBySetCancel" data-set="1" title="Hủy">
+              <img src="/icons/deny.png" class="qs-icon-img" alt="Cancel" />
+            </button>
+          </td>
+        </tr>
+          <tr id="row-q-1" class=" ">
+            <td class="aq-stt">1</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">Chu k&#x1EF3; kinh nguy&#x1EC7;t c&#x1EE7;a b&#x1EA1;n th&#x1B0;&#x1EDD;ng k&#xE9;o d&#xE0;i bao nhi&#xEA;u ng&#xE0;y?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="1" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="1" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="1" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-2" class=" ">
+            <td class="aq-stt">2</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">T&#xEC;nh tr&#x1EA1;ng thai k&#x1EF3; hi&#x1EC7;n t&#x1EA1;i c&#x1EE7;a b&#x1EA1;n l&#xE0; g&#xEC;?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="2" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="2" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="2" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-3" class=" ">
+            <td class="aq-stt">3</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; &#x111;ang s&#x1EED; d&#x1EE5;ng bi&#x1EC7;n ph&#xE1;p tr&#xE1;nh thai n&#xE0;o kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="3" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="3" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="3" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-4" class=" ">
+            <td class="aq-stt">4</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">Ng&#xE0;y &#x111;&#x1EA7;u ti&#xEA;n c&#x1EE7;a k&#x1EF3; kinh g&#x1EA7;n nh&#x1EA5;t l&#xE0; khi n&#xE0;o?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="4" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="4" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="4" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-5" class=" ">
+            <td class="aq-stt">5</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n th&#x1B0;&#x1EDD;ng b&#x1ECB; &#x111;au b&#x1EE5;ng kinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="5" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="5" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="5" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-6" class=" ">
+            <td class="aq-stt">6</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">M&#xE0;u s&#x1EAF;c m&#xE1;u kinh nguy&#x1EC7;t c&#x1EE7;a b&#x1EA1;n th&#x1B0;&#x1EDD;ng l&#xE0; g&#xEC;?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="6" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="6" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="6" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-7" class=" ">
+            <td class="aq-stt">7</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">L&#x1B0;&#x1EE3;ng m&#xE1;u kinh c&#x1EE7;a b&#x1EA1;n nh&#x1B0; th&#x1EBF; n&#xE0;o?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="7" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="7" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="7" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-8" class=" ">
+            <td class="aq-stt">8</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n th&#x1B0;&#x1EDD;ng c&#xF3; nh&#x1EEF;ng tri&#x1EC7;u ch&#x1EE9;ng n&#xE0;o tr&#x1B0;&#x1EDB;c ho&#x1EB7;c trong k&#x1EF3; kinh?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="8" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="8" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="8" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-9" class=" ">
+            <td class="aq-stt">9</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n &#x111;&#xE3; t&#x1EEB;ng b&#x1ECB; rong kinh ch&#x1B0;a?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="9" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="9" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="9" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-10" class=" ">
+            <td class="aq-stt">10</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; t&#x1EEB;ng &#x111;&#x1B0;&#x1EE3;c ch&#x1EA9;n &#x111;o&#xE1;n m&#x1EAF;c c&#xE1;c b&#x1EC7;nh ph&#x1EE5; khoa n&#xE0;o sau &#x111;&#xE2;y?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="10" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="10" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="10" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-11" class=" ">
+            <td class="aq-stt">11</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; b&#x1ECB; r&#x1ED1;i lo&#x1EA1;n kinh nguy&#x1EC7;t kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="11" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="11" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="11" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-12" class=" ">
+            <td class="aq-stt">12</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n th&#x1B0;&#x1EDD;ng b&#x1ECB; chu&#x1ED9;t r&#xFA;t trong k&#x1EF3; kinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="12" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="12" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="12" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-13" class=" ">
+            <td class="aq-stt">13</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; t&#x1EEB;ng b&#x1ECB; tr&#x1EC5; kinh qu&#xE1; 7 ng&#xE0;y kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="13" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="13" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="13" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-14" class=" ">
+            <td class="aq-stt">14</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">T&#xE2;m tr&#x1EA1;ng c&#x1EE7;a b&#x1EA1;n th&#x1B0;&#x1EDD;ng thay &#x111;&#x1ED5;i nh&#x1B0; th&#x1EBF; n&#xE0;o quanh k&#x1EF3; kinh?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="14" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="14" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="14" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-15" class=" ">
+            <td class="aq-stt">15</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; nhu c&#x1EA7;u theo d&#xF5;i nh&#x1EEF;ng g&#xEC; trong chu k&#x1EF3;?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="15" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="15" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="15" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-16" class=" ">
+            <td class="aq-stt">16</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; theo d&#xF5;i chu k&#x1EF3; kinh nguy&#x1EC7;t h&#x1EB1;ng th&#xE1;ng kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="16" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="16" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="16" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-17" class=" ">
+            <td class="aq-stt">17</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">Chu k&#x1EF3; c&#x1EE7;a b&#x1EA1;n th&#x1B0;&#x1EDD;ng k&#xE9;o d&#xE0;i bao nhi&#xEA;u ng&#xE0;y?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="17" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="17" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="17" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-18" class=" ">
+            <td class="aq-stt">18</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; hay b&#x1ECB; r&#x1ED1;i lo&#x1EA1;n kinh nguy&#x1EC7;t kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="18" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="18" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="18" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-19" class=" is-hidden">
+            <td class="aq-stt">19</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; th&#x1B0;&#x1EDD;ng g&#x1EB7;p tri&#x1EC7;u ch&#x1EE9;ng ti&#x1EC1;n kinh nguy&#x1EC7;t (PMS) kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="19" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide active"
+                    title="Hi&#x1EC7;n">
+                      <img src="/icons/view.png" class="qs-icon-img" alt="View" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="19" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="19" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-20" class=" ">
+            <td class="aq-stt">20</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; ghi ch&#xFA; l&#x1EA1;i ng&#xE0;y r&#x1EE5;ng tr&#x1EE9;ng kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="20" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="20" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="20" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-21" class=" ">
+            <td class="aq-stt">21</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; d&#xF9;ng app ho&#x1EB7;c s&#x1ED5; &#x111;&#x1EC3; theo d&#xF5;i chu k&#x1EF3; kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="21" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="21" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="21" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-22" class=" ">
+            <td class="aq-stt">22</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; t&#x1EEB;ng b&#x1ECF; l&#x1EE1; k&#x1EF3; kinh n&#xE0;o trong 6 th&#xE1;ng g&#x1EA7;n &#x111;&#xE2;y kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="22" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="22" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="22" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-23" class=" ">
+            <td class="aq-stt">23</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; g&#x1EB7;p v&#x1EA5;n &#x111;&#x1EC1; v&#x1EC1; chu k&#x1EF3; sau khi thay &#x111;&#x1ED5;i ch&#x1EBF; &#x111;&#x1ED9; &#x103;n kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="23" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="23" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="23" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-24" class=" ">
+            <td class="aq-stt">24</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; b&#x1ECB; &#x111;au b&#x1EE5;ng ho&#x1EB7;c kh&#xF3; ch&#x1ECB;u trong chu k&#x1EF3; kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="24" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="24" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="24" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-25" class=" ">
+            <td class="aq-stt">25</td>
+            <td class="aq-set">Bộ (ID): 1</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; mu&#x1ED1;n d&#x1EF1; &#x111;o&#xE1;n ng&#xE0;y r&#x1EE5;ng tr&#x1EE9;ng &#x111;&#x1EC3; mang thai ho&#x1EB7;c tr&#xE1;nh thai kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=1">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="25" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="25" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="1" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="25" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="1" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+        <tr id="set-2" class="aq-set-row">
+          <td class="aq-set-stt">
+            <span class="aq-set-badge">Bộ câu hỏi ID: 2</span>
+          </td>
+          <td class="aq-set-remain"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-actions">
+              <button type="button" class="aq-add-btn aq-add-byset" data-set="2">
+                <img src="/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+              </button>
+          </td>
+        </tr>
+        <!-- Hàng form thêm mới (ẩn/hiện bằng nút trên) -->
+        <tr id="aq-new-row-2" class="aq-new-byset" style="display:none;">
+          <td class="aq-stt">—</td>
+          <td class="aq-set">Bộ (ID): 2</td>
+          <td class="aq-text">
+            <form id="aqNewForm-2" method="post" class="qs-inline" action="/Home/CreateQuestion?score=false">
+              
+              <input type="hidden" name="questionSetId" value="2" />
+              <input type="text" name="text" class="qs-input" placeholder="Nội dung câu hỏi..." required  />
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+          </td>
+          <td class="aq-type">
+            <select form="aqNewForm-2" name="type" class="qs-input" >
+              <option value="single">single</option>
+              <option value="multiple">multiple</option>
+              <option value="text">text</option>
+            </select>
+          </td>
+          <td class="qs-actions">
+            <button form="aqNewForm-2" type="submit" class="qs-icon btn-save" title="Lưu" >
+              <img src="/icons/accept.png" class="qs-icon-img" alt="Save" />
+            </button>
+            <button type="button" class="qs-icon btn-cancel aqBySetCancel" data-set="2" title="Hủy">
+              <img src="/icons/deny.png" class="qs-icon-img" alt="Cancel" />
+            </button>
+          </td>
+        </tr>
+          <tr id="row-q-26" class=" ">
+            <td class="aq-stt">1</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n &#x111;&#xE3; t&#x1EEB;ng kh&#xE1;m s&#x1EE9;c kh&#x1ECF;e t&#x1ED5;ng qu&#xE1;t trong n&#x103;m nay ch&#x1B0;a?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="26" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="26" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="26" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-27" class="is-locked ">
+            <td class="aq-stt">2</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; ti&#x1EC1;n s&#x1EED; b&#x1EC7;nh m&#xE3;n t&#xED;nh n&#xE0;o kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <span class="qs-icon btn-edit is-disabled" title="Đã khóa">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </span>
+                <button type="button" class="qs-icon btn-hide is-disabled" title="Đã khóa">
+                  <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                </button>
+                <button type="button" class="qs-icon btn-delete is-disabled" title="Đã khóa">
+                  <img src="/icons/bin.png" class="qs-icon-img" alt="Delete" />
+                </button>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="27" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock active"
+                  title="M&#x1EDF; kh&#xF3;a">
+                    <img src="/icons/padlock.png" class="qs-icon-img" alt="Lock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-28" class="is-locked ">
+            <td class="aq-stt">3</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; h&#xFA;t thu&#x1ED1;c ho&#x1EB7;c u&#x1ED1;ng r&#x1B0;&#x1EE3;u th&#x1B0;&#x1EDD;ng xuy&#xEA;n kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <span class="qs-icon btn-edit is-disabled" title="Đã khóa">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </span>
+                <button type="button" class="qs-icon btn-hide is-disabled" title="Đã khóa">
+                  <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                </button>
+                <button type="button" class="qs-icon btn-delete is-disabled" title="Đã khóa">
+                  <img src="/icons/bin.png" class="qs-icon-img" alt="Delete" />
+                </button>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="28" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock active"
+                  title="M&#x1EDF; kh&#xF3;a">
+                    <img src="/icons/padlock.png" class="qs-icon-img" alt="Lock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-29" class="is-locked ">
+            <td class="aq-stt">4</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; b&#x1ECB; d&#x1ECB; &#x1EE9;ng v&#x1EDB;i lo&#x1EA1;i thu&#x1ED1;c ho&#x1EB7;c th&#x1EF1;c ph&#x1EA9;m n&#xE0;o kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <span class="qs-icon btn-edit is-disabled" title="Đã khóa">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </span>
+                <button type="button" class="qs-icon btn-hide is-disabled" title="Đã khóa">
+                  <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                </button>
+                <button type="button" class="qs-icon btn-delete is-disabled" title="Đã khóa">
+                  <img src="/icons/bin.png" class="qs-icon-img" alt="Delete" />
+                </button>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="29" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock active"
+                  title="M&#x1EDF; kh&#xF3;a">
+                    <img src="/icons/padlock.png" class="qs-icon-img" alt="Lock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-30" class=" ">
+            <td class="aq-stt">5</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">Gia &#x111;&#xEC;nh b&#x1EA1;n c&#xF3; ai m&#x1EAF;c b&#x1EC7;nh di truy&#x1EC1;n kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="30" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="30" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="30" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-31" class=" ">
+            <td class="aq-stt">6</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; th&#x1B0;&#x1EDD;ng xuy&#xEA;n t&#x1EAD;p th&#x1EC3; d&#x1EE5;c kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="31" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="31" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="31" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-32" class=" ">
+            <td class="aq-stt">7</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; g&#x1EB7;p v&#x1EA5;n &#x111;&#x1EC1; v&#x1EC1; gi&#x1EA5;c ng&#x1EE7; trong th&#x1EDD;i gian d&#xE0;i kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="32" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="32" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="32" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-33" class=" ">
+            <td class="aq-stt">8</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; &#x111;ang s&#x1EED; d&#x1EE5;ng thu&#x1ED1;c theo toa kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="33" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="33" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="33" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-34" class=" ">
+            <td class="aq-stt">9</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; t&#x1EEB;ng ph&#x1EAB;u thu&#x1EAD;t trong v&#xF2;ng 5 n&#x103;m qua kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="34" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="34" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="34" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-35" class=" ">
+            <td class="aq-stt">10</td>
+            <td class="aq-set">Bộ (ID): 2</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; c&#x1EA3;m th&#x1EA5;y c&#x103;ng th&#x1EB3;ng ho&#x1EB7;c &#xE1;p l&#x1EF1;c k&#xE9;o d&#xE0;i kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=2">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="35" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="35" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="2" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="35" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="2" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+        <tr id="set-3" class="aq-set-row">
+          <td class="aq-set-stt">
+            <span class="aq-set-badge">Bộ câu hỏi ID: 3</span>
+          </td>
+          <td class="aq-set-remain"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-actions">
+              <button type="button" class="aq-add-btn aq-add-byset" data-set="3">
+                <img src="/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+              </button>
+          </td>
+        </tr>
+        <!-- Hàng form thêm mới (ẩn/hiện bằng nút trên) -->
+        <tr id="aq-new-row-3" class="aq-new-byset" style="display:none;">
+          <td class="aq-stt">—</td>
+          <td class="aq-set">Bộ (ID): 3</td>
+          <td class="aq-text">
+            <form id="aqNewForm-3" method="post" class="qs-inline" action="/Home/CreateQuestion?score=false">
+              
+              <input type="hidden" name="questionSetId" value="3" />
+              <input type="text" name="text" class="qs-input" placeholder="Nội dung câu hỏi..." required  />
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+          </td>
+          <td class="aq-type">
+            <select form="aqNewForm-3" name="type" class="qs-input" >
+              <option value="single">single</option>
+              <option value="multiple">multiple</option>
+              <option value="text">text</option>
+            </select>
+          </td>
+          <td class="qs-actions">
+            <button form="aqNewForm-3" type="submit" class="qs-icon btn-save" title="Lưu" >
+              <img src="/icons/accept.png" class="qs-icon-img" alt="Save" />
+            </button>
+            <button type="button" class="qs-icon btn-cancel aqBySetCancel" data-set="3" title="Hủy">
+              <img src="/icons/deny.png" class="qs-icon-img" alt="Cancel" />
+            </button>
+          </td>
+        </tr>
+          <tr id="row-q-36" class=" ">
+            <td class="aq-stt">1</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; g&#x1EB7;p kh&#xF3; kh&#x103;n khi cho con b&#xFA; kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="36" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="36" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="36" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-37" class=" ">
+            <td class="aq-stt">2</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; &#x111;ang c&#x1EA3;m th&#x1EA5;y m&#x1EC7;t m&#x1ECF;i sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="37" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="37" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="37" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-38" class=" ">
+            <td class="aq-stt">3</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; nh&#x1EAD;n &#x111;&#x1B0;&#x1EE3;c s&#x1EF1; h&#x1ED7; tr&#x1EE3; t&#x1EEB; gia &#x111;&#xEC;nh sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="38" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="38" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="38" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-39" class=" ">
+            <td class="aq-stt">4</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; &#x111;ang g&#x1EB7;p c&#xE1;c tri&#x1EC7;u ch&#x1EE9;ng tr&#x1EA7;m c&#x1EA3;m sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="39" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="39" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="39" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-40" class=" ">
+            <td class="aq-stt">5</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; g&#x1EB7;p kh&#xF3; kh&#x103;n trong vi&#x1EC7;c c&#xE2;n b&#x1EB1;ng ch&#x103;m s&#xF3;c con v&#xE0; b&#x1EA3;n th&#xE2;n kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="40" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="40" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="40" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-41" class=" ">
+            <td class="aq-stt">6</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; mu&#x1ED1;n &#x111;&#x1B0;&#x1EE3;c t&#x1B0; v&#x1EA5;n v&#x1EC1; ch&#x1EBF; &#x111;&#x1ED9; dinh d&#x1B0;&#x1EE1;ng sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="41" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="41" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="41" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-42" class=" ">
+            <td class="aq-stt">7</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; g&#x1EB7;p v&#x1EA5;n &#x111;&#x1EC1; v&#x1EC1; gi&#x1EA5;c ng&#x1EE7; do ch&#x103;m con kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="42" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="42" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="42" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-43" class=" ">
+            <td class="aq-stt">8</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; &#x111;ang s&#x1EED; d&#x1EE5;ng bi&#x1EC7;n ph&#xE1;p tr&#xE1;nh thai sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="43" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="43" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="43" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-44" class=" ">
+            <td class="aq-stt">9</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; mu&#x1ED1;n t&#x1B0; v&#x1EA5;n v&#x1EC1; vi&#x1EC7;c ph&#x1EE5;c h&#x1ED3;i s&#x1EE9;c kh&#x1ECF;e sau sinh kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="44" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="44" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="44" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+          <tr id="row-q-45" class=" ">
+            <td class="aq-stt">10</td>
+            <td class="aq-set">Bộ (ID): 3</td>
+            <td class="aq-text">B&#x1EA1;n c&#xF3; c&#xE2;u h&#x1ECF;i n&#xE0;o li&#xEA;n quan &#x111;&#x1EBF;n vi&#x1EC7;c mang thai l&#x1EA7;n sau kh&#xF4;ng?</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=3">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="45" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="45" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="3" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="45" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="3" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+        <tr id="set-22" class="aq-set-row">
+          <td class="aq-set-stt">
+            <span class="aq-set-badge">Bộ câu hỏi ID: 22</span>
+          </td>
+          <td class="aq-set-remain"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-spacer"></td>
+          <td class="aq-set-actions">
+              <button type="button" class="aq-add-btn aq-add-byset" data-set="22">
+                <img src="/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+              </button>
+          </td>
+        </tr>
+        <!-- Hàng form thêm mới (ẩn/hiện bằng nút trên) -->
+        <tr id="aq-new-row-22" class="aq-new-byset" style="display:none;">
+          <td class="aq-stt">—</td>
+          <td class="aq-set">Bộ (ID): 22</td>
+          <td class="aq-text">
+            <form id="aqNewForm-22" method="post" class="qs-inline" action="/Home/CreateQuestion?score=false">
+              
+              <input type="hidden" name="questionSetId" value="22" />
+              <input type="text" name="text" class="qs-input" placeholder="Nội dung câu hỏi..." required  />
+            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+          </td>
+          <td class="aq-type">
+            <select form="aqNewForm-22" name="type" class="qs-input" >
+              <option value="single">single</option>
+              <option value="multiple">multiple</option>
+              <option value="text">text</option>
+            </select>
+          </td>
+          <td class="qs-actions">
+            <button form="aqNewForm-22" type="submit" class="qs-icon btn-save" title="Lưu" >
+              <img src="/icons/accept.png" class="qs-icon-img" alt="Save" />
+            </button>
+            <button type="button" class="qs-icon btn-cancel aqBySetCancel" data-set="22" title="Hủy">
+              <img src="/icons/deny.png" class="qs-icon-img" alt="Cancel" />
+            </button>
+          </td>
+        </tr>
+          <tr id="row-q-87" class=" ">
+            <td class="aq-stt">1</td>
+            <td class="aq-set">Bộ (ID): 22</td>
+            <td class="aq-text">dsfsdfsdfsd</td>
+            <td class="aq-type">single</td>
+
+            <td class="qs-actions">
+                <a class="qs-icon btn-edit" title="Sửa" target="_blank" rel="noopener" href="/?questionSetId=22">
+                  <img src="/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                </a>
+                <!-- Ẩn/Hiện -->
+                <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="87" />
+                  <input type="hidden" name="op" value="active" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="22" />
+                  <button type="submit" class="qs-icon btn-hide "
+                    title="&#x1EA8;n">
+                      <img src="/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+                <!-- Xoá -->
+                <form method="post" class="qs-inline" onsubmit="return confirm('Xóa câu hỏi này?');" action="/Home/ToggleQuestionState">
+                  
+                  <input type="hidden" name="id" value="87" />
+                  <input type="hidden" name="op" value="delete" />
+                  <input type="hidden" name="score" value="false" />
+                  <input type="hidden" name="questionSetId" value="22" />
+                  <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                    <img src="/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                  </button>
+                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+
+              <!-- Khóa/Mở -->
+              <form method="post" class="qs-inline" action="/Home/ToggleQuestionState">
+                
+                <input type="hidden" name="id" value="87" />
+                <input type="hidden" name="op" value="lock" />
+                <input type="hidden" name="score" value="false" />
+                <input type="hidden" name="questionSetId" value="22" />
+                <button type="submit" class="qs-icon btn-lock "
+                  title="Kh&#xF3;a">
+                    <img src="/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                </button>
+              <input name="__RequestVerificationToken" type="hidden" value="CfDJ8HrctpFLJ4JMuL-eHyfVj80fL5nPgueJkOrizoKBOMjP7NX4yXZ6AjvlSFnkRC8WDpTuUPL9bnlYKIAYB0--NJeLW1aDCXL4JHKjhGOrU6XeYwavwXjj5tA_Zhk7ZBxv0FRbDRO8sCG2dWKanUKJH7E" /></form>
+            </td>
+          </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+    // Toggle sidebar
+    const btn = document.getElementById('btnMenu');
+    const sidebar = document.querySelector('.sidebar');
+    btn?.addEventListener('click', () => sidebar?.classList.toggle('open'));
+    document.addEventListener('click', (e) => {
+        if (!sidebar?.classList.contains('open')) return;
+        if (!sidebar.contains(e.target) && !btn.contains(e.target)) sidebar.classList.remove('open');
+    });
+    window.addEventListener('resize', () => { if (window.innerWidth >= 992) sidebar?.classList.remove('open'); });
+
+    // 🔍 Search filter (client-side)
+    const searchInput = document.getElementById("searchInput");
+
+    searchInput?.addEventListener("input", function () {
+        const keyword = this.value.toLowerCase().trim();
+        const items = document.querySelectorAll(".content table tbody tr"); // tùy vào cấu trúc trang
+
+        items.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(keyword) ? "" : "none";
+        });
+    });
+</script>
+
+    
+  <script src="/js/add_questions.js?v=Iajfr2pRH41YTCu8p9RPX-vsZAOzXovDwPtmjE__GC8"></script>
+
+</body>
+</html>
+

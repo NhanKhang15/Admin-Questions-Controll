@@ -1,0 +1,278 @@
+@model IEnumerable<AdminPortal.ViewModels.QuestionWithAnswersVm>
+@{
+    var maxBySet = ViewBag.MaxScoresBySet as Dictionary<int, decimal> ?? new Dictionary<int, decimal>();
+    decimal GetMaxForSet(int setId) => maxBySet.TryGetValue(setId, out var mx) ? mx : 10m;
+
+    var allSets = (IEnumerable<dynamic>)(ViewBag.AllSets ?? Enumerable.Empty<object>());
+
+    // helper: try to extract a human-friendly name from a dynamic set object
+    Func<dynamic, string?> GetSetName = setObj => {
+        if (setObj == null) return null;
+        try {
+            var o = (object)setObj;
+            var t = o.GetType();
+            var p = t.GetProperty("Name") ?? t.GetProperty("Title") ?? t.GetProperty("DisplayName") ?? t.GetProperty("SetName");
+            if (p != null) {
+                var v = p.GetValue(o, null);
+                if (v != null) return v.ToString();
+            }
+
+            // IDictionary style dynamic (ExpandoObject)
+            var dict = o as IDictionary<string, object>;
+            if (dict != null) {
+                if (dict.TryGetValue("Name", out var n) && n != null) return n.ToString();
+                if (dict.TryGetValue("Title", out var tval) && tval != null) return tval.ToString();
+            }
+        } catch { }
+        return null;
+    };
+
+    // build quick lookup from set id -> name
+    var setNames = new Dictionary<int, string>();
+    foreach (var ss in allSets) {
+        try {
+            int id = (int)ss.Id;
+            var nm = GetSetName(ss) ?? string.Empty;
+            if (!setNames.ContainsKey(id)) setNames[id] = nm;
+        } catch { }
+    }
+
+    var bySet = Model?
+    .GroupBy(m => m.QuestionSetId)
+    .ToDictionary(g => g.Key, g => g.ToList())
+    ?? new Dictionary<int, List<AdminPortal.ViewModels.QuestionWithAnswersVm>>();
+
+    var usedBySet = Model
+    .GroupBy(x => x.QuestionSetId)
+    .ToDictionary(g => g.Key, g => g.Sum(x => x.MaxPoints ?? 0m));
+}
+
+<div class="aq-table-wrap">
+    <table class="aq-table">
+        <thead>
+            <tr>
+                <th style="width:72px">STT</th>
+                <th>Thuộc bộ câu hỏi</th>
+                <th>Nội dung</th>
+                <th style="width:120px">Loại</th>
+                <th class="text-right" style="width:110px">Điểm</th>
+                <th class="text-center" style="width:200px">Hành động</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var s in allSets)
+            {
+                int setId = (int)s.Id;
+                bool isLocked = (bool)(s.IsLocked ?? false);
+
+                // số liệu header
+                var headerMax = GetMaxForSet(setId);
+                var headerUsed = usedBySet.TryGetValue(setId, out var u) ? u : 0m;
+                var headerRemain = Math.Max(0m, headerMax - headerUsed);
+
+                // Header mỗi bộ
+                <tr id="set-@setId" class="aq-set-row">
+                    <td class="aq-set-stt"><span class="aq-set-badge">@($"Bộ câu hỏi ID: {setId}" + (setNames.TryGetValue(setId, out var __hname) && !string.IsNullOrWhiteSpace(__hname) ? $", {__hname}" : string.Empty))</span></td>
+                    <td class="aq-set-remain">
+                        <span class="aq-pts-left">Điểm còn lại: <b>@headerRemain.ToString("0.##")</b> / @headerMax</span>
+                    </td>
+                    <td class="aq-set-spacer"></td>
+                    <td class="aq-set-spacer"></td>
+                    <td class="aq-set-spacer"></td>
+                    <td class="aq-set-actions">
+                        @if (!isLocked)
+                        {
+                            <button type="button" class="aq-add-btn aq-add-byset" data-set="@setId">
+                                <img src="~/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="button" class="aq-add-btn is-disabled" disabled title="Bộ đã khóa">
+                                <img src="~/icons/plus.png" class="qs-icon-img" alt="+" /> Thêm câu hỏi
+                            </button>
+                        }
+                    </td>
+                </tr>
+
+                <!-- Form thêm mới (ẩn/hiện bằng nút trên) -->
+                <tr id="aq-new-row-@setId" class="aq-new-byset" style="display:none;">
+                    <td class="aq-stt">—</td>
+                    <td class="aq-set">@($"Bộ (ID): {setId}")</td>
+                    <td class="aq-text">
+                        <form id="aqNewForm-@setId" asp-controller="Home" asp-action="CreateQuestion" asp-route-score="true"
+                            method="post" class="qs-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="questionSetId" value="@setId" />
+                            <input type="text" name="text" class="qs-input" placeholder="Nội dung câu hỏi..." required@(isLocked ? "disabled" : "") />
+                        </form>
+                    </td>
+                    <td class="aq-type">
+                        <select form="aqNewForm-@setId" name="type" class="qs-input" @(isLocked ? "disabled" : "")>
+                            <option value="single">single</option>
+                            <option value="multiple">multiple</option>
+                            <option value="text">text</option>
+                        </select>
+                    </td>
+                    <td class="aq-points">
+                        <input form="aqNewForm-@setId" type="number" step="0.25" min="0.25" max="@headerRemain"
+                            name="maxPoints" class="qs-input aq-point-input" data-remain="@headerRemain"
+                            placeholder="≤ @headerRemain" required @(isLocked ? "disabled" : "") />
+                    </td>
+                    <td class="qs-actions">
+                        <button form="aqNewForm-@setId" type="submit" class="qs-icon btn-save" title="Lưu" @(isLocked ?"disabled" : "")>
+                            <img src="~/icons/accept.png" class="qs-icon-img" alt="Save" />
+                        </button>
+                        <button type="button" class="qs-icon btn-cancel aqBySetCancel" data-set="@setId" title="Hủy">
+                            <img src="~/icons/deny.png" class="qs-icon-img" alt="Cancel" />
+                        </button>
+                    </td>
+                </tr>
+
+                var items = bySet.TryGetValue(setId, out var list) ? list : new
+                List<AdminPortal.ViewModels.QuestionWithAnswersVm>();
+                var sttInSet = 0;
+
+                @foreach (var q in items)
+                {
+                    sttInSet++;
+                    var currentPts = q.MaxPoints ?? 0m;
+                    var maxForThis = currentPts + headerRemain;
+
+                    <tr id="row-q-@q.QuestionId" class="@(q.IsLocked ? "is-locked" : "") @(q.IsActive ? "" : "is-hidden")">
+                        <td class="aq-stt">@sttInSet</td>
+                        <td class="aq-set">@($"Bộ (ID): {q.QuestionSetId}")</td>
+                        <td class="aq-text">@q.Text</td>
+                        <td class="aq-type">@q.Type</td>
+
+                        <td class="aq-points text-right">
+                            <form asp-controller="Home" asp-action="UpdateQuestionPoints" method="post" class="qs-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@q.QuestionId" />
+                                <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                                <input type="hidden" name="score" value="true" />
+                                <input type="hidden" name="redirectSetId" value="@q.QuestionSetId" />
+                                <div class="aq-points-edit">
+                                    <input name="maxPoints" type="number" step="0.25" min="0" max="@maxForThis"
+                                        class="qs-input aq-point-inline" value="@(q.MaxPoints?.ToString() ?? "")"
+                                        placeholder="-" inputmode="decimal" lang="en" title="Tối đa: @maxForThis" />
+                                    <button type="submit" class="qs-icon btn-save-inline" title="Lưu điểm">
+                                        <img src="~/icons/accept.png" class="qs-icon-img" alt="Save" />
+                                    </button>
+                                </div>
+                            </form>
+                        </td>
+
+                        <td class="qs-actions">
+                            @if (!q.IsLocked)
+                            {
+                                <a asp-controller="Home" asp-action="ManageQuestions" asp-route-questionSetId="@q.QuestionSetId"
+                                    class="qs-icon btn-edit" title="Sửa">
+                                    <img src="~/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                                </a>
+
+                                <!-- Ẩn/Hiện -->
+                                <form asp-controller="Home" asp-action="ToggleQuestionState" method="post" class="qs-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@q.QuestionId" />
+                                    <input type="hidden" name="op" value="active" />
+                                    <input type="hidden" name="score" value="true" />
+                                    <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                                    <input type="hidden" name="from" value="add" />
+                                    <input type="hidden" name="returnUrl" value="@(Context?.Request?.Path + Context?.Request?.QueryString)" />
+                                    <input type="hidden" name="anchor" value="q-@q.QuestionId" />
+                                    <button type="submit" class="qs-icon btn-hide @(q.IsActive ? "" : "active")"
+                                        title="@(q.IsActive ? "Ẩn" : "Hiện")">
+                                        @if (q.IsActive)
+                                        {
+                                            <img src="~/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                                        }
+                                        else
+                                        {
+
+                                            <img src="~/icons/view.png" class="qs-icon-img" alt="View" />
+                                        }
+                                    </button>
+                                </form>
+
+                                <!-- Xoá -->
+                                <form asp-controller="Home" asp-action="ToggleQuestionState" method="post" class="qs-inline"
+                                    onsubmit="return confirm('Xóa câu hỏi này?');">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@q.QuestionId" />
+                                    <input type="hidden" name="op" value="delete" />
+                                    <input type="hidden" name="score" value="true" />
+                                    <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                                    <input type="hidden" name="from" value="add" />
+                                    <input type="hidden" name="returnUrl" value="@(Context?.Request?.Path + Context?.Request?.QueryString)" />
+                                    <input type="hidden" name="anchor" value="q-@q.QuestionId" />
+                                    <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                                        <img src="~/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                                    </button>
+                                </form>
+                                
+                                //Skipp
+                                <form method="post" asp-controller="Home" asp-action="ToggleQuestionState" class="qs-inline">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@q.QuestionId" />
+                                    <input type="hidden" name="op" value="skip" />
+                                    <input type="hidden" name="score" value="true" />
+                                    <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                                    <input type="hidden" name="from" value="add" />
+                                    <input type="hidden" name="returnUrl" value="@(Context?.Request?.Path + Context?.Request?.QueryString)" />
+                                    <input type="hidden" name="anchor" value="q-@q.QuestionId" />
+                                    <button type="submit" class="qs-icon btn-skip @(q.Skipped ? "" : "active")"
+                                        title="@(q.Skipped ? "không skip" : "skip")">
+                                        @if (q.Skipped)
+                                        {
+                                            <img src="~/icons/skip.png" class="qs-icon-img" alt="non skip" />
+                                        }
+                                        else
+                                        {
+
+                                            <img src="~/icons/nonskip.png" class="qs-icon-img" alt="skip" />
+                                        }
+                                    </button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="qs-icon btn-edit is-disabled" title="Đã khóa">
+                                    <img src="~/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                                </span>
+                                <button type="button" class="qs-icon btn-hide is-disabled" title="Đã khóa">
+                                    <img src="~/icons/hide.png" class="qs-icon-img" alt="Hide" />
+                                </button>
+                                <button type="button" class="qs-icon btn-delete is-disabled" title="Đã khóa">
+                                    <img src="~/icons/bin.png" class="qs-icon-img" alt="Delete" />
+                                </button>
+                            }
+
+                            <!-- Khóa/Mở -->
+                            <form asp-controller="Home" asp-action="ToggleQuestionState" method="post" class="qs-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@q.QuestionId" />
+                                <input type="hidden" name="op" value="lock" />
+                                <input type="hidden" name="score" value="true" />
+                                <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                                <button type="submit" class="qs-icon btn-lock @(q.IsLocked ? "active" : "")"
+                                    title="@(q.IsLocked ? "Mở khóa" : "Khóa")">
+                                    @if (q.IsLocked)
+                                    {
+                                        <img src="~/icons/padlock.png" class="qs-icon-img" alt="Lock" />
+                                    }
+                                    else
+                                    {
+
+                                        <img src="~/icons/unlock.png" class="qs-icon-img" alt="Unlock" />
+                                    }
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

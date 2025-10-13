@@ -1,0 +1,28 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    string active(string ctrl, string act)
+        => (ViewContext.RouteData.Values["controller"]?.ToString() == ctrl
+            && ViewContext.RouteData.Values["action"]?.ToString() == act) ? "active" : "";
+}
+<aside class="sidebar">
+    <div class="brand">
+        <div class="avatar">A</div>
+        <div class="brand-info">
+            <div class="brand-title">App Kinh Nguyệt</div>
+            <div class="brand-sub">Admin</div>
+        </div>
+    </div>
+
+    <div class="menu-label">MENU</div>
+    <nav class="menu">
+        <a class="menu-item @active("Home","ManageQuestions")" asp-controller="Home" asp-action="ManageQuestions">
+            <span class="dot">◉</span> Quản lý câu hỏi và câu trả lời
+        </a>
+        <a class="menu-item @active("Home","AddQuestion")" asp-controller="Home" asp-action="AddQuestion">
+            <span class="dot">▣</span> Thêm câu hỏi
+        </a>
+        <a class="menu-item @active("QuestionSet","Index")" asp-controller="QuestionSet" asp-action="Index">
+            <span class="dot">▤</span> Thêm bộ câu hỏi
+        </a>
+    </nav>
+</aside>

@@ -1,0 +1,174 @@
+/* Toolbar */
+.q-toolbar{display:flex; justify-content:flex-end; margin-bottom:12px}
+.q-filter{display:flex; gap:8px; align-items:center}
+.q-filter label{display:flex; gap:6px; align-items:center; font-size:14px}
+.q-filter input{padding:8px 10px; border:1px solid #e5e7eb; border-radius:8px; min-width:120px}
+.q-filter button, .btn-reset{
+  padding:8px 12px; border-radius:8px; border:1px solid #e5e7eb; background:#fff; cursor:pointer; text-decoration:none; color:#111
+}
+.q-filter button:hover, .btn-reset:hover{background:#f6f7f9}
+
+/* List + Card */
+.q-list{display:grid; grid-template-columns:1fr; gap:12px}
+.q-card{background:#fff; border:1px solid #e5e7eb; border-radius:14px; padding:16px}
+.q-head{display:flex; flex-direction:column; gap:8px}
+.q-meta{display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+.q-tag{font-size:12px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:999px; padding:2px 8px; color:#374151}
+
+/* Order form inline */
+.order-form{display:inline-flex; gap:3px; align-items:center; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:999px; padding:2px 4px 2px 8px}
+.q-order-tag{background:transparent; border:none; padding:0; margin:0}
+.order-input{width:40px; padding:2px 4px; border:1px solid #d1d5db; border-radius:6px; font-size:12px; text-align:center}
+.order-btn{background:#10b981; color:#fff; border:none; border-radius:6px; padding:2px 6px; cursor:pointer; font-size:11px; line-height:1}
+.order-btn:hover{background:#059669}
+
+/* Type + Actions */
+.q-type{margin-left:auto; font-size:12px; text-transform:uppercase; letter-spacing:.04em; color:#6b7280}
+.q-type.single{color:#16a34a}
+.q-type.multiple{color:#2563eb}
+.q-type.text{color:#a855f7}
+
+.q-actions{display:flex; gap:6px; margin-left:auto}
+.btn-toggle{
+  padding:4px 12px; border-radius:999px; font-size:12px; font-weight:600; cursor:pointer; border:none; transition:all .2s
+}
+.btn-toggle.active{background:#dcfce7; color:#166534; border:1px solid #86efac}
+.btn-toggle.inactive{background:#fee2e2; color:#991b1b; border:1px solid #fca5a5}
+.btn-toggle:hover{opacity:.8}
+
+/* Text & Answers */
+.q-text{font-weight:600; line-height:1.4}
+.ans-box{margin-top:10px; color:#6b7280}
+.ans-list{margin:10px 0 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:8px}
+.ans-item{display:flex; gap:10px; align-items:flex-start; border:1px dashed #e5e7eb; border-radius:10px; padding:10px}
+.ans-label{min-width:28px; height:28px; display:grid; place-items:center; border-radius:8px; background:#fef3c7; color:#92400e; font-weight:700}
+.ans-text{flex:1}
+.ans-hint{font-size:12px; color:#6b7280; margin-top:4px}
+.ans-empty{margin-top:10px; color:#9ca3af}
+
+/* Divider giữa các Set */
+.q-divider{
+  grid-column: 1 / -1;      /* span full width trong grid */
+  border: none;
+  border-top: 3px double #9ca3af;
+  margin: 24px 0;
+  opacity: .5;
+  position: relative;
+  height: 0;
+}
+.q-divider::before{
+  content: attr(data-next-set); /* ví dụ: "Set 3" */
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background:#fff;
+  color:#6b7280;
+  font-size:13px;
+  font-weight:500;
+  padding:0 8px;
+}
+
+/* Edit button look */
+.btn-edit-q{
+  padding:4px 10px;border:1px solid #e5e7eb;border-radius:10px;background:#fff;cursor:pointer;font-size:12px
+}
+.btn-edit-q:hover{background:#f6f7f9}
+
+/* Modal */
+.q-modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;padding:16px;z-index:1000
+}
+.q-modal.open{display:flex}
+.q-modal__dialog{
+  width:100%;max-width:760px;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.2);display:flex;flex-direction:column;max-height:90dvh;overflow:hidden
+}
+.q-modal__header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #eef2f7}
+.q-modal__close{background:transparent;border:none;font-size:20px;cursor:pointer;line-height:1}
+.q-modal__footer{display:flex;gap:8px;justify-content:flex-end;padding:12px 16px;border-top:1px solid #eef2f7}
+
+#qEditForm{padding:12px 16px;overflow:auto}
+.q-form__group{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.q-input{width:100%;padding:10px 12px;border:1px solid #e5e7eb;border-radius:10px;font-size:14px}
+.q-input:focus{outline:none;border-color:#94a3b8;box-shadow:0 0 0 3px rgba(148,163,184,.2)}
+
+.q-btn{padding:8px 12px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer}
+.q-btn--primary{background:#2563eb;color:#fff;border-color:#2563eb}
+.q-btn--ghost{background:#fff}
+.q-btn--sm{padding:6px 10px;font-size:12px}
+
+/* Answer editor grid */
+.q-ans-editor{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.q-ans-editor__head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+.q-ans-row{display:grid;gap:8px;grid-template-columns:80px 1fr 1fr 80px;align-items:center}
+.q-ans-col--act{text-align:right}
+
+@media (max-width: 600px){
+  .q-modal__dialog{max-width:100%;height:100dvh;border-radius:0}
+  #qEditForm{padding:12px}
+  .q-ans-row{grid-template-columns:1fr} /* xếp dọc cho mobile */
+  .q-ans-col--act{text-align:left}
+}
+
+
+/* responsive */
+@media (min-width:768px){ .q-list{grid-template-columns:1fr 1fr} }
+@media (min-width:1200px){ .q-list{grid-template-columns:1fr 1fr 1fr} }
+
+/* Tabs chọn bộ câu hỏi tính điểm / không tính điểm */
+.q-filter__tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.q-filter__tabs .aq-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.q-filter__tabs .aq-tab strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.q-filter__tabs .aq-tab:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.q-filter__tabs .aq-tab.is-active {
+  background: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
+.q-filter__tabs .aq-tab.is-active strong {
+  color: #fff;
+}
+
+/* Responsive (mobile: nút full width) */
+@media (max-width: 640px) {
+  .q-filter__tabs {
+    flex-direction: column;
+    width: 100%;
+  }
+  .q-filter__tabs .aq-tab {
+    width: 100%;
+    justify-content: center;
+  }
+}

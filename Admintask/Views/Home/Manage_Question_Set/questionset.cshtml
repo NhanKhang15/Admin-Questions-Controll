@@ -1,0 +1,211 @@
+@model IEnumerable<AdminPortal.ViewModels.QuestionSetVm>
+@{
+    ViewData["Title"] = "Thêm bộ câu hỏi";
+    Layout = "_Layout";
+    var stt = 0; // STT tăng từ 1
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/question-sets.css" asp-append-version="true" />
+}
+
+<h1 class="page-title">Thêm bộ câu hỏi</h1>
+
+<div class="qs-wrap">
+    <div class="qs-toolbar">
+        <div class="qs-note">Danh sách các bộ câu hỏi hiện có</div>
+
+        <!-- Nút thêm bộ câu hỏi (góc phải) -->
+        <button type="button" id="qsAddBtn" class="qs-add-btn" title="Thêm bộ câu hỏi">
+            <img src="~/icons/plus.png" alt="Add" class="qs-icon-img" />
+            <span class="qs-add-text">Thêm</span>
+        </button>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="qs-empty">Chưa có bộ câu hỏi nào.</div>
+    }
+    else
+    {
+        <table class="qs-table">
+            <thead>
+                <tr>
+                    <th style="width:72px">STT</th>
+                    <th>Tên bộ câu hỏi</th>
+                    <th>Gợi ý</th>
+                    <th class="text-center" style="width:90px">Điểm</th>
+                    <th class="text-center" style="width:200px">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            <!-- Hàng nhập mới: ẩn mặc định, bấm nút Thêm sẽ mở -->
+            <tr id="qs-new-row" style="display:none;">
+                <td class="qs-stt">—</td>
+                <td class="qs-name">
+                    <form id="qsNewForm" asp-controller="QuestionSet" asp-action="Create" method="post" class="qs-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="IsActive" value="true" />
+                        <input type="hidden" name="IsLocked" value="false" />
+                        <input type="text" name="Name" id="qsNewName" class="qs-input" placeholder="Nhập tên bộ câu hỏi..." required />
+                    </form>
+                </td>
+                <td class="qs-hint">
+                    <input form="qsNewForm" type="text" name="Hint" class="qs-input" placeholder="Nhập gợi ý (tuỳ chọn)..." />
+                </td>
+                <td class="qs-score text-center">
+                    <!-- chọn có tính điểm hay không -->
+                    <label class="qs-score-toggle">
+                        <input form="qsNewForm" type="checkbox" name="IsScore" value="true" />
+                        <span> Tính điểm</span>
+                    </label>
+                </td>
+                <td class="qs-actions">
+                    <!-- Lưu (tick) -->
+                    <button form="qsNewForm" type="submit" class="qs-icon btn-save" title="Lưu">
+                        <img src="~/icons/accept.png" alt="Save" class="qs-icon-img" />
+                    </button>
+                    <!-- Hủy (X) -->
+                    <button type="button" id="qsNewCancel" class="qs-icon btn-cancel" title="Hủy">
+                        <img src="~/icons/deny.png" alt="Cancel" class="qs-icon-img" />
+                    </button>
+                </td>
+            </tr>
+
+            @foreach (var set in Model)
+            {
+                stt++;
+                <tr class="@(set.IsLocked ? "is-locked" : "") @(set.IsHidden ? "is-hidden" : "")">
+                    <td class="qs-stt">@stt</td>
+                    <td class="qs-name">@set.Name</td>
+                    <td class="qs-hint">@set.Hint</td>
+
+                    <!-- Cột Điểm -->
+                    <td class="qs-score text-center">
+                        @if (set.IsScore)
+                        {
+                            <img src="~/icons/accept.png" alt="Có tính điểm" class="qs-icon-img" />
+                        }
+                        else
+                        {
+                            <img src="~/icons/deny.png" alt="Không tính điểm" class="qs-icon-img" />
+                        }
+                    </td>
+
+                    <td class="qs-actions">
+                        @if (!set.IsLocked)
+                        {
+                            <!-- Edit -->
+                            <a asp-controller="QuestionSet"
+                            asp-action="Edit"
+                            asp-route-id="@set.Id"
+                            class="qs-icon btn-edit"
+                            title="Sửa">
+                                <img src="~/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                            </a>
+
+                            <!-- Hide/Show -->
+                            <form asp-controller="QuestionSet" asp-action="ToggleVisibility" method="post" class="qs-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@set.Id" />
+                                <button type="submit"
+                                        class="qs-icon btn-hide @(set.IsHidden ? "active" : "")"
+                                        title="@(set.IsHidden ? "Hiện" : "Ẩn")">
+                                    @if (set.IsHidden)
+                                    {
+                                        <img src="~/icons/view.png" alt="View" class="qs-icon-img" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/icons/hide.png" alt="Hide" class="qs-icon-img" />
+                                    }
+                                </button>
+                            </form>
+
+                            <form asp-controller="QuestionSet" asp-action="Delete"
+                                asp-route-id="@set.Id" method="post" class="qs-inline"
+                                onsubmit="return confirm('Xóa bộ câu hỏi này?');">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="qs-icon btn-delete" title="Xóa">
+                                    <img src="~/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <!-- Locked: disable -->
+                            <span class="qs-icon btn-edit is-disabled" title="Đã khóa">
+                                <img src="~/icons/pen.png" alt="Edit" class="qs-icon-img" />
+                            </span>
+                            <button type="button" class="qs-icon btn-hide is-disabled" title="Đã khóa">
+                                @if (set.IsHidden)
+                                {
+                                    <img src="~/icons/view.png" alt="View" class="qs-icon-img" />
+                                }
+                                else
+                                {
+                                    <img src="~/icons/hide.png" alt="Hide" class="qs-icon-img" />
+                                }
+                            </button>
+                            <button type="button" class="qs-icon btn-delete is-disabled" title="Đã khóa">
+                                <img src="~/icons/bin.png" alt="Delete" class="qs-icon-img" />
+                            </button>
+                        }
+
+                        <!-- Lock/Unlock -->
+                        <form asp-controller="QuestionSet" asp-action="ToggleLock" method="post" class="qs-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@set.Id" />
+                            <button type="submit"
+                                    class="qs-icon btn-lock @(set.IsLocked ? "active" : "")"
+                                    title="@(set.IsLocked ? "Mở khóa" : "Khóa")">
+                                @if (set.IsLocked)
+                                {
+                                    <img src="~/icons/padlock.png" alt="Lock" class="qs-icon-img" />
+                                }
+                                else
+                                {
+                                    <img src="~/icons/unlock.png" alt="Unlock" class="qs-icon-img" />
+                                }
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+</div>
+
+@section Scripts {
+<script>
+  (function () {
+    const addBtn = document.getElementById('qsAddBtn');
+    const newRow = document.getElementById('qs-new-row');
+    const newName = document.getElementById('qsNewName');
+    const cancelBtn = document.getElementById('qsNewCancel');
+
+    if (addBtn) {
+      addBtn.addEventListener('click', function () {
+        if (newRow.style.display === 'none') {
+          newRow.style.display = '';
+          setTimeout(() => newName && newName.focus(), 0);
+        } else {
+          // đang mở -> focus lại
+          newName && newName.focus();
+        }
+      });
+    }
+
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function () {
+        // clear inputs
+        const form = document.getElementById('qsNewForm');
+        if (form) form.reset();
+        newRow.style.display = 'none';
+      });
+    }
+  })();
+</script>
+}

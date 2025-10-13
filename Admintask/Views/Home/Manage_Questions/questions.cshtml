@@ -1,0 +1,194 @@
+@using System.Text.Json
+
+@model IEnumerable<AdminPortal.ViewModels.QuestionWithAnswersVm>
+@{
+    ViewData["Title"] = "Quản lý câu hỏi";
+    Layout = "_Layout";
+    var qset = ViewBag.QuerySetId as int?;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/questions.css" asp-append-version="true" />
+}
+@section Scripts {
+  <script src="~/js/questions.js" asp-append-version="true"></script>
+}
+
+<h1 class="page-title">Quản lý câu hỏi @if(qset.HasValue){<text>(Set @qset)</text>}</h1>
+
+<div class="q-toolbar">
+    @{ var scoreFilter = (bool?)(ViewBag.Score ?? null); }
+    <div class="q-filter">
+        <span class="q-filter__tabs">
+            <a asp-controller="Home" asp-action="ManageQuestions" asp-route-score="true" asp-route-questionSetId="@(qset)" class="aq-tab @(scoreFilter == true ? "is-active" : "")">Bộ <strong>tính điểm</strong></a>
+            <a asp-controller="Home" asp-action="ManageQuestions" asp-route-score="false" asp-route-questionSetId="@(qset)" class="aq-tab @(scoreFilter == false ? "is-active" : "")">Bộ <strong>không tính điểm</strong></a>
+        </span>
+
+    <form method="get" class="q-filter__form">
+        <label>
+            <span>Chọn bộ câu hỏi:</span>
+            <input type="number" name="questionSetId" value="@(qset?.ToString() ?? "")" placeholder="VD: 1" min="1" />
+        </label>
+        <button type="submit">Lọc</button>
+        <a class="btn-reset" asp-controller="Home" asp-action="ManageQuestions">Reset</a>
+    </form>
+    </div>
+</div>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="placeholder">Không có câu hỏi nào.</div>
+}
+else
+{
+    <div class="q-list">
+        @{
+            int? prevSetId = null;
+        }
+
+        @* đảm bảo sort đúng nhóm *@
+        @foreach (var q in Model.OrderBy(x => x.QuestionSetId).ThenBy(x => x.OrderInSet))
+        {
+            if (prevSetId != null && prevSetId != q.QuestionSetId)
+            {
+                <hr class="q-divider" data-next-set="Set @q.QuestionSetId" />
+            }
+
+            <article class="q-card" id="q-@q.QuestionId">
+                <header class="q-head">
+                    <div class="q-meta">
+                        <span class="q-tag">Set @q.QuestionSetId @if(q.IsSetScored){<text><span class="q-score-badge badge--scored" title="Bộ tính điểm">✓</span></text>}</span>
+
+                        <form method="post" asp-controller="Home" asp-action="UpdateQuestionOrder" class="order-form">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="questionId" value="@q.QuestionId" />
+                            <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                            <span class="q-tag q-order-tag">#</span>
+                            <input type="number" name="newOrder" value="@q.OrderInSet" min="1" class="order-input" title="Thay đổi thứ tự" />
+                            <button type="submit" class="order-btn" title="Cập nhật thứ tự">✓</button>
+                        </form>
+
+                        <span class="q-type @q.Type">@q.Type</span>
+                    </div>
+
+                    <div class="q-actions">
+                        <button type="button"
+                                class="btn-edit-q"
+                                data-qid="@q.QuestionId"
+                                data-qset="@q.QuestionSetId"
+                                data-qtype="@q.Type"
+                                data-qtext="@q.Text"
+                                data-maxpoints="@(q.MaxPoints.HasValue ? q.MaxPoints.Value.ToString(System.Globalization.CultureInfo.InvariantCulture) : "")"
+                                data-issetscored="@(q.IsSetScored ? "1" : "0")"
+                                data-answers='@Html.Raw(JsonSerializer.Serialize(q.Answers.Select(a => new { id = a.Id, label = a.Label, text = a.Text, hint = a.Hint, points = a.Points, isExclusive = a.IsExclusive })))'>
+                            ✏️ Sửa
+                        </button>
+
+                        <form asp-controller="Home" asp-action="ToggleQuestionState" method="post" class="qs-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@q.QuestionId" />
+                            <input type="hidden" name="op" value="active" />
+                            <input type="hidden" name="score" value="@(q.IsSetScored ? "true" : "false")" />
+                            <input type="hidden" name="questionSetId" value="@q.QuestionSetId" />
+                            <input type="hidden" name="from" value="manage" />
+                            <input type="hidden" name="returnUrl" value="@(Context?.Request?.Path + Context?.Request?.QueryString)" />
+                            <input type="hidden" name="anchor" value="q-@q.QuestionId" />
+                            <button type="submit" class="btn-toggle @(q.IsActive ? "active" : "inactive")">
+                                @(q.IsActive ? "Hoạt động" : "Ngưng")
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="q-text">@q.Text</div>
+                </header>
+
+                @if (q.Type == "text")
+                {
+                    <div class="ans-box">
+                        <em>Câu hỏi tự luận (text) — không có đáp án lựa chọn.</em>
+                    </div>
+                }
+                else
+                {
+                    <ol class="ans-list">
+                        @foreach (var a in q.Answers)
+                        {
+                            <li class="ans-item">
+                                <div class="ans-label">@a.Label</div>
+                                <div class="ans-text">@a.Text</div>
+                                @if (!string.IsNullOrWhiteSpace(a.Hint))
+                                {
+                                    <div class="ans-hint">Gợi ý: @a.Hint</div>
+                                }
+                            </li>
+                        }
+                    </ol>
+
+                    @if (!q.Answers.Any())
+                    {
+                        <div class="ans-empty">Chưa có đáp án nào cho câu hỏi này.</div>
+                    }
+                }
+            </article>
+
+            prevSetId = q.QuestionSetId;
+        }
+
+        <!-- Modal sửa câu hỏi -->
+<div id="qEditModal" class="q-modal" aria-hidden="true">
+  <div class="q-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="qEditTitle">
+    <header class="q-modal__header">
+      <h3 id="qEditTitle">Chỉnh sửa câu hỏi</h3>
+      <button type="button" class="q-modal__close" id="qEditClose" aria-label="Đóng">×</button>
+    </header>
+
+    <form id="qEditForm" method="post" asp-controller="Home" asp-action="EditQuestionWithAnswers">
+      @Html.AntiForgeryToken()
+    <input type="hidden" name="Id" id="qeQuestionId" />
+      <input type="hidden" name="QuestionSetId" id="qeQuestionSetId" />
+
+      <div class="q-form__group">
+        <label for="qeQuestionText">Nội dung câu hỏi</label>
+        <textarea id="qeQuestionText" name="Text" required rows="3" class="q-input"></textarea>
+      </div>
+
+      <div class="q-form__group">
+        <label for="qeQuestionType">Loại câu hỏi</label>
+        <select id="qeQuestionType" name="Type" class="q-input">
+          <option value="single">Một đáp án đúng</option>
+          <option value="multiple">Nhiều đáp án đúng</option>
+          <option value="text">Tự luận</option>
+        </select>
+      </div>
+
+            <div class="q-form__group">
+                <label>
+                    <input type="checkbox" id="qeIsScored" name="IsScored" />
+                    <span>Đánh dấu là câu hỏi tính điểm</span>
+                </label>
+            </div>
+
+            <div class="q-form__group" id="qeMaxPointsWrap" style="display:none">
+                <label for="qeMaxPoints">Điểm tối đa (ví dụ 1.0)</label>
+                <input id="qeMaxPoints" name="MaxPoints" class="q-input" type="text" placeholder="0.5" />
+                <small class="hint">Nhập số (dùng dấu chấm). Hệ thống sẽ clamp theo MaxScore của bộ câu hỏi.</small>
+            </div>
+
+      <div class="q-ans-editor" id="qeAnswersWrap">
+        <div class="q-ans-editor__head">
+          <h4>Đáp án</h4>
+          <button type="button" class="q-btn q-btn--ghost" id="qeAddAnswer">+ Thêm đáp án</button>
+        </div>
+        <!-- JS sẽ render các hàng đáp án vào đây -->
+      </div>
+
+      <footer class="q-modal__footer">
+        <button type="button" class="q-btn q-btn--ghost" id="qEditCancel">Hủy</button>
+        <button type="submit" class="q-btn q-btn--primary">Lưu</button>
+      </footer>
+    </form>
+  </div>
+</div>
+
+    </div>
+}
