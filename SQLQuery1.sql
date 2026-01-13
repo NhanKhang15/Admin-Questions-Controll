@@ -82,7 +82,10 @@ CREATE TABLE Experts (
     full_name NVARCHAR(100) NOT NULL,
     specialization NVARCHAR(100),
     contact_info NVARCHAR(255),
-    created_at DATETIME DEFAULT GETDATE()
+	user_id INT NULL,
+    created_at DATETIME DEFAULT GETDATE(),
+	CONSTRAINT FK_Experts_Users
+	FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id)
 );
 GO
 
@@ -198,7 +201,181 @@ CREATE TABLE UserAnswers (
 );
 GO
 
+CREATE TABLE dbo.ContentCategories (
+  category_id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(120) NOT NULL,
+  slug NVARCHAR(160) NOT NULL UNIQUE,
+  description NVARCHAR(MAX) NULL,
+  is_active BIT NOT NULL DEFAULT 1,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE()
+);
+GO
 
+CREATE TABLE dbo.Tags (
+  tag_id INT IDENTITY(1,1) PRIMARY KEY,
+  name NVARCHAR(80) NOT NULL,
+  slug NVARCHAR(120) NOT NULL UNIQUE,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE()
+);
+GO
+
+CREATE TABLE dbo.Videos (
+  video_id INT IDENTITY(1,1) PRIMARY KEY,
+  expert_id INT NULL, -- nếu video thuộc chuyên gia
+  title NVARCHAR(255) NOT NULL,
+  description NVARCHAR(MAX) NULL,
+
+  thumbnail_url NVARCHAR(500) NULL,
+  video_url NVARCHAR(500) NOT NULL,
+
+  duration_seconds INT NOT NULL DEFAULT 0,
+  is_short BIT NOT NULL DEFAULT 0,
+  is_premium BIT NOT NULL DEFAULT 0,
+
+  status NVARCHAR(20) NOT NULL DEFAULT N'draft'
+    CHECK (status IN (N'draft', N'published', N'hidden')),
+
+  published_at DATETIME2(0) NULL,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  updated_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+
+  FOREIGN KEY (expert_id) REFERENCES dbo.Experts(expert_id)
+);
+GO
+
+CREATE TABLE dbo.VideoCategories (
+  video_id INT NOT NULL,
+  category_id INT NOT NULL,
+  PRIMARY KEY (video_id, category_id),
+  FOREIGN KEY (video_id) REFERENCES dbo.Videos(video_id) ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES dbo.ContentCategories(category_id)
+);
+GO
+
+CREATE TABLE dbo.VideoTags (
+  video_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  PRIMARY KEY (video_id, tag_id),
+  FOREIGN KEY (video_id) REFERENCES dbo.Videos(video_id) ON DELETE CASCADE,
+  FOREIGN KEY (tag_id) REFERENCES dbo.Tags(tag_id)
+);
+GO
+
+CREATE TABLE dbo.VideoStats (
+  video_id INT PRIMARY KEY,
+  view_count BIGINT NOT NULL DEFAULT 0,
+  like_count BIGINT NOT NULL DEFAULT 0,
+  updated_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  FOREIGN KEY (video_id) REFERENCES dbo.Videos(video_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.VideoLikes (
+  user_id INT NOT NULL,
+  video_id INT NOT NULL,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  PRIMARY KEY (user_id, video_id),
+  FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (video_id) REFERENCES dbo.Videos(video_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.VideoViews (
+  view_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+  user_id INT NULL,              -- cho phép guest
+  video_id INT NOT NULL,
+  viewed_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  ip_hash NVARCHAR(80) NULL,
+  FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id) ON DELETE SET NULL,
+  FOREIGN KEY (video_id) REFERENCES dbo.Videos(video_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.Posts (
+  post_id INT IDENTITY(1,1) PRIMARY KEY,
+  expert_id INT NULL,
+
+  title NVARCHAR(255) NOT NULL,
+  summary NVARCHAR(500) NULL,
+  content NVARCHAR(MAX) NOT NULL,     -- HTML/Markdown
+  thumbnail_url NVARCHAR(500) NULL,
+
+  is_premium BIT NOT NULL DEFAULT 0,
+  status NVARCHAR(20) NOT NULL DEFAULT N'draft'
+    CHECK (status IN (N'draft', N'published', N'hidden')),
+
+  published_at DATETIME2(0) NULL,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  updated_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+
+  FOREIGN KEY (expert_id) REFERENCES dbo.Experts(expert_id)
+);
+GO
+
+CREATE TABLE dbo.PostCategories (
+  post_id INT NOT NULL,
+  category_id INT NOT NULL,
+  PRIMARY KEY (post_id, category_id),
+  FOREIGN KEY (post_id) REFERENCES dbo.Posts(post_id) ON DELETE CASCADE,
+  FOREIGN KEY (category_id) REFERENCES dbo.ContentCategories(category_id)
+);
+GO
+
+CREATE TABLE dbo.PostTags (
+  post_id INT NOT NULL,
+  tag_id INT NOT NULL,
+  PRIMARY KEY (post_id, tag_id),
+  FOREIGN KEY (post_id) REFERENCES dbo.Posts(post_id) ON DELETE CASCADE,
+  FOREIGN KEY (tag_id) REFERENCES dbo.Tags(tag_id)
+);
+GO
+
+CREATE TABLE dbo.PostStats (
+  post_id INT PRIMARY KEY,
+  view_count BIGINT NOT NULL DEFAULT 0,
+  like_count BIGINT NOT NULL DEFAULT 0,
+  updated_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  FOREIGN KEY (post_id) REFERENCES dbo.Posts(post_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.PostLikes (
+  user_id INT NOT NULL,
+  post_id INT NOT NULL,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  PRIMARY KEY (user_id, post_id),
+  FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (post_id) REFERENCES dbo.Posts(post_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.PostViews (
+  view_id BIGINT IDENTITY(1,1) PRIMARY KEY,
+  user_id INT NULL,
+  post_id INT NOT NULL,
+  viewed_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  ip_hash NVARCHAR(80) NULL,
+  FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id) ON DELETE SET NULL,
+  FOREIGN KEY (post_id) REFERENCES dbo.Posts(post_id) ON DELETE CASCADE
+);
+GO
+
+CREATE TABLE dbo.ExpertFollows (
+  user_id INT NOT NULL,
+  expert_id INT NOT NULL,
+  created_at DATETIME2(0) NOT NULL DEFAULT GETDATE(),
+  PRIMARY KEY (user_id, expert_id),
+  FOREIGN KEY (user_id) REFERENCES dbo.Users(user_id) ON DELETE CASCADE,
+  FOREIGN KEY (expert_id) REFERENCES dbo.Experts(expert_id) ON DELETE CASCADE
+);
+GO
+
+CREATE INDEX IX_Videos_Status_PublishedAt ON dbo.Videos(status, published_at DESC);
+CREATE INDEX IX_Posts_Status_PublishedAt  ON dbo.Posts(status, published_at DESC);
+
+CREATE INDEX IX_VideoViews_VideoId_Time ON dbo.VideoViews(video_id, viewed_at DESC);
+CREATE INDEX IX_PostViews_PostId_Time   ON dbo.PostViews(post_id, viewed_at DESC);
+GO
 
 BEGIN TRAN;
 SET NOCOUNT ON;
@@ -501,3 +678,399 @@ ELSE
 BEGIN
     PRINT 'FK_Answers_Questions already exists';
 END;
+
+
+BEGIN TRAN;
+SET NOCOUNT ON;
+
+INSERT INTO dbo.Experts(full_name, specialization, contact_info)
+VALUES (N'ThS. Nguyễn Mai Linh', N'Tâm lý học', N'mail@example.com');
+
+SELECT SCOPE_IDENTITY() AS new_expert_id;
+
+------------------------------------------------------------
+-- A) ENSURE CATEGORIES EXIST (by slug)
+------------------------------------------------------------
+DECLARE @CatStressId INT, @CatMeditId INT;
+
+IF NOT EXISTS (SELECT 1 FROM dbo.ContentCategories WHERE slug = N'quan-ly-stress')
+BEGIN
+  INSERT INTO dbo.ContentCategories(name, slug, description, is_active)
+  VALUES (N'Quản lý stress', N'quan-ly-stress', N'Danh mục về stress', 1);
+END
+SELECT @CatStressId = category_id FROM dbo.ContentCategories WHERE slug = N'quan-ly-stress';
+
+IF NOT EXISTS (SELECT 1 FROM dbo.ContentCategories WHERE slug = N'thien-dinh')
+BEGIN
+  INSERT INTO dbo.ContentCategories(name, slug, description, is_active)
+  VALUES (N'Thiền định', N'thien-dinh', N'Danh mục về thiền', 1);
+END
+SELECT @CatMeditId = category_id FROM dbo.ContentCategories WHERE slug = N'thien-dinh';
+
+------------------------------------------------------------
+-- B) ENSURE TAGS EXIST (by slug)
+------------------------------------------------------------
+DECLARE @TagStressId INT, @TagMeditId INT, @TagBreathId INT;
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Tags WHERE slug = N'stress')
+BEGIN
+  INSERT INTO dbo.Tags(name, slug) VALUES (N'stress', N'stress');
+END
+SELECT @TagStressId = tag_id FROM dbo.Tags WHERE slug = N'stress';
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Tags WHERE slug = N'meditation')
+BEGIN
+  INSERT INTO dbo.Tags(name, slug) VALUES (N'meditation', N'meditation');
+END
+SELECT @TagMeditId = tag_id FROM dbo.Tags WHERE slug = N'meditation';
+
+IF NOT EXISTS (SELECT 1 FROM dbo.Tags WHERE slug = N'breathing')
+BEGIN
+  INSERT INTO dbo.Tags(name, slug) VALUES (N'breathing', N'breathing');
+END
+SELECT @TagBreathId = tag_id FROM dbo.Tags WHERE slug = N'breathing';
+
+------------------------------------------------------------
+-- C) PICK UP TO 3 EXISTING USERS (for likes/views)
+------------------------------------------------------------
+DECLARE @U1 INT = NULL, @U2 INT = NULL, @U3 INT = NULL;
+
+;WITH u AS (
+  SELECT TOP 3 user_id, ROW_NUMBER() OVER (ORDER BY user_id) rn
+  FROM dbo.Users
+  ORDER BY user_id
+)
+SELECT
+  @U1 = MAX(CASE WHEN rn=1 THEN user_id END),
+  @U2 = MAX(CASE WHEN rn=2 THEN user_id END),
+  @U3 = MAX(CASE WHEN rn=3 THEN user_id END)
+FROM u;
+
+------------------------------------------------------------
+-- D) INSERT VIDEO #1 (expert_id = NULL cho chắc)
+------------------------------------------------------------
+INSERT INTO dbo.Videos (
+  expert_id, title, description, thumbnail_url, video_url,
+  duration_seconds, is_short, is_premium, status, published_at
+)
+VALUES (
+  NULL,
+  N'Kỹ thuật thở giảm stress trong 2 phút',
+  N'Video ngắn hướng dẫn kỹ thuật thở giúp giảm căng thẳng nhanh.',
+  N'https://cdn.example.com/thumbs/breathing.jpg',
+  N'https://cdn.example.com/videos/breathing.mp4',
+  120, 1, 1, N'published', '2025-01-12'
+);
+
+DECLARE @VideoId1 INT = SCOPE_IDENTITY();
+IF @VideoId1 IS NULL
+BEGIN
+  ROLLBACK;
+  THROW 50001, 'Insert Videos #1 failed => @VideoId1 is NULL', 1;
+END
+
+-- Categories
+INSERT INTO dbo.VideoCategories(video_id, category_id)
+VALUES (@VideoId1, @CatStressId), (@VideoId1, @CatMeditId);
+
+-- Tags
+INSERT INTO dbo.VideoTags(video_id, tag_id)
+VALUES (@VideoId1, @TagStressId), (@VideoId1, @TagBreathId);
+
+-- Stats (đặt số mẫu)
+INSERT INTO dbo.VideoStats(video_id, view_count, like_count)
+VALUES (@VideoId1, 0, 0);
+
+-- Likes (chỉ insert nếu có user)
+IF @U1 IS NOT NULL INSERT INTO dbo.VideoLikes(user_id, video_id) VALUES (@U1, @VideoId1);
+IF @U2 IS NOT NULL INSERT INTO dbo.VideoLikes(user_id, video_id) VALUES (@U2, @VideoId1);
+IF @U3 IS NOT NULL INSERT INTO dbo.VideoLikes(user_id, video_id) VALUES (@U3, @VideoId1);
+
+-- Views (user + guest)
+IF @U1 IS NOT NULL INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash) VALUES (@U1, @VideoId1, N'ip_u1_v1');
+IF @U2 IS NOT NULL INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash) VALUES (@U2, @VideoId1, N'ip_u2_v1');
+IF @U3 IS NOT NULL INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash) VALUES (@U3, @VideoId1, N'ip_u3_v1');
+
+INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash)
+VALUES (NULL, @VideoId1, N'ip_guest_1'), (NULL, @VideoId1, N'ip_guest_2');
+
+------------------------------------------------------------
+-- E) INSERT VIDEO #2
+------------------------------------------------------------
+INSERT INTO dbo.Videos (
+  expert_id, title, description, thumbnail_url, video_url,
+  duration_seconds, is_short, is_premium, status, published_at
+)
+VALUES (
+  NULL,
+  N'Thiền định căn bản cho người mới bắt đầu',
+  N'Bài hướng dẫn thiền định căn bản giúp ngủ ngon và giảm lo âu.',
+  N'https://cdn.example.com/thumbs/meditation.jpg',
+  N'https://cdn.example.com/videos/meditation.mp4',
+  900, 0, 0, N'published', '2025-01-15'
+);
+
+DECLARE @VideoId2 INT = SCOPE_IDENTITY();
+IF @VideoId2 IS NULL
+BEGIN
+  ROLLBACK;
+  THROW 50002, 'Insert Videos #2 failed => @VideoId2 is NULL', 1;
+END
+
+-- Categories
+INSERT INTO dbo.VideoCategories(video_id, category_id)
+VALUES (@VideoId2, @CatMeditId);
+
+-- Tags
+INSERT INTO dbo.VideoTags(video_id, tag_id)
+VALUES (@VideoId2, @TagMeditId);
+
+-- Stats
+INSERT INTO dbo.VideoStats(video_id, view_count, like_count)
+VALUES (@VideoId2, 0, 0);
+
+-- Likes
+IF @U1 IS NOT NULL INSERT INTO dbo.VideoLikes(user_id, video_id) VALUES (@U1, @VideoId2);
+IF @U2 IS NOT NULL INSERT INTO dbo.VideoLikes(user_id, video_id) VALUES (@U2, @VideoId2);
+
+-- Views
+IF @U1 IS NOT NULL INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash) VALUES (@U1, @VideoId2, N'ip_u1_v2');
+IF @U2 IS NOT NULL INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash) VALUES (@U2, @VideoId2, N'ip_u2_v2');
+
+INSERT INTO dbo.VideoViews(user_id, video_id, ip_hash)
+VALUES (NULL, @VideoId2, N'ip_guest_3'), (NULL, @VideoId2, N'ip_guest_4');
+
+------------------------------------------------------------
+-- F) SYNC STATS = COUNT(VIEWS/LIKES) (khớp tuyệt đối)
+------------------------------------------------------------
+UPDATE s
+SET
+  s.view_count = v.cnt,
+  s.like_count = l.cnt,
+  s.updated_at = SYSUTCDATETIME()
+FROM dbo.VideoStats s
+OUTER APPLY (SELECT COUNT(*) cnt FROM dbo.VideoViews vv WHERE vv.video_id = s.video_id) v
+OUTER APPLY (SELECT COUNT(*) cnt FROM dbo.VideoLikes vl WHERE vl.video_id = s.video_id) l
+WHERE s.video_id IN (@VideoId1, @VideoId2);
+
+COMMIT;
+
+-- Xem kết quả Videos
+SELECT v.video_id, v.title, v.status, s.view_count, s.like_count
+FROM dbo.Videos v
+LEFT JOIN dbo.VideoStats s ON s.video_id = v.video_id
+WHERE v.video_id IN (@VideoId1, @VideoId2);
+
+
+-- ============================================================
+-- INSERT DATA CHO BÀI VIẾT (POSTS) - 3 BÀI VIẾT MẪU
+-- ============================================================
+
+BEGIN TRAN;
+SET NOCOUNT ON;
+
+------------------------------------------------------------
+-- BÀI VIẾT #1: Hướng dẫn quản lý stress
+------------------------------------------------------------
+INSERT INTO dbo.Posts (
+  expert_id, title, summary, content, thumbnail_url,
+  is_premium, status, published_at
+)
+VALUES (
+  NULL,
+  N'10 Cách Quản Lý Stress Hiệu Quả Cho Phụ Nữ Bận Rộn',
+  N'Khám phá những phương pháp đơn giản giúp bạn giảm căng thẳng và cân bằng cuộc sống.',
+  N'<h2>Giới thiệu</h2>
+<p>Stress là một phần không thể tránh khỏi trong cuộc sống hiện đại. Đặc biệt với phụ nữ, việc cân bằng giữa công việc, gia đình và bản thân có thể gây ra nhiều áp lực.</p>
+
+<h2>1. Thực hành kỹ thuật thở sâu</h2>
+<p>Hít vào trong 4 giây, giữ 4 giây, thở ra trong 6 giây. Lặp lại 5-10 lần mỗi khi cảm thấy căng thẳng.</p>
+
+<h2>2. Dành thời gian cho bản thân</h2>
+<p>Mỗi ngày hãy dành ít nhất 15 phút để làm điều bạn yêu thích.</p>
+
+<h2>3. Tập thể dục đều đặn</h2>
+<p>Vận động giúp giải phóng endorphin - hormone hạnh phúc tự nhiên của cơ thể.</p>
+
+<h2>4. Ngủ đủ giấc</h2>
+<p>Đảm bảo ngủ 7-8 tiếng mỗi đêm để cơ thể phục hồi.</p>
+
+<h2>5. Hạn chế caffeine</h2>
+<p>Caffeine có thể làm tăng cảm giác lo âu và căng thẳng.</p>',
+  N'https://picsum.photos/400/300?random=101',
+  0,
+  N'published',
+  '2025-01-10'
+);
+
+DECLARE @PostId1 INT = SCOPE_IDENTITY();
+
+-- PostCategories
+INSERT INTO dbo.PostCategories(post_id, category_id)
+SELECT @PostId1, category_id FROM dbo.ContentCategories WHERE slug = N'quan-ly-stress';
+
+-- PostTags
+INSERT INTO dbo.PostTags(post_id, tag_id)
+SELECT @PostId1, tag_id FROM dbo.Tags WHERE slug IN (N'stress', N'breathing');
+
+-- PostStats
+INSERT INTO dbo.PostStats(post_id, view_count, like_count)
+VALUES (@PostId1, 0, 0);
+
+-- PostLikes (từ user hiện có)
+INSERT INTO dbo.PostLikes(user_id, post_id)
+SELECT TOP 2 user_id, @PostId1 FROM dbo.Users ORDER BY user_id;
+
+-- PostViews
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash)
+SELECT TOP 2 user_id, @PostId1, CONCAT(N'ip_u', user_id, N'_p1') FROM dbo.Users ORDER BY user_id;
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash) VALUES (NULL, @PostId1, N'ip_guest_p1');
+
+------------------------------------------------------------
+-- BÀI VIẾT #2: Hướng dẫn thiền định
+------------------------------------------------------------
+INSERT INTO dbo.Posts (
+  expert_id, title, summary, content, thumbnail_url,
+  is_premium, status, published_at
+)
+VALUES (
+  NULL,
+  N'Thiền Định Cho Người Mới Bắt Đầu: Hướng Dẫn Từng Bước',
+  N'Bài viết chi tiết về cách thiền định hiệu quả dành cho người chưa có kinh nghiệm.',
+  N'<h2>Thiền định là gì?</h2>
+<p>Thiền định là thực hành tập trung tâm trí để đạt được sự bình an và nhận thức rõ ràng hơn.</p>
+
+<h2>Lợi ích của thiền định</h2>
+<ul>
+  <li>Giảm căng thẳng và lo âu</li>
+  <li>Cải thiện tập trung</li>
+  <li>Tăng cường sức khỏe tinh thần</li>
+  <li>Hỗ trợ điều hòa kinh nguyệt</li>
+</ul>
+
+<h2>Cách thực hành</h2>
+<h3>Bước 1: Chọn không gian yên tĩnh</h3>
+<p>Tìm một nơi yên tĩnh, thoải mái nơi bạn không bị làm phiền.</p>
+
+<h3>Bước 2: Ngồi thoải mái</h3>
+<p>Có thể ngồi trên ghế hoặc trên sàn với tư thế thoải mái.</p>
+
+<h3>Bước 3: Tập trung vào hơi thở</h3>
+<p>Nhắm mắt và chú ý đến hơi thở tự nhiên của bạn. Không cần thay đổi gì, chỉ quan sát.</p>
+
+<h3>Bước 4: Duy trì 5-10 phút</h3>
+<p>Bắt đầu với 5 phút mỗi ngày, sau đó tăng dần thời gian.</p>',
+  N'https://picsum.photos/400/300?random=102',
+  0,
+  N'published',
+  '2025-01-11'
+);
+
+DECLARE @PostId2 INT = SCOPE_IDENTITY();
+
+-- PostCategories
+INSERT INTO dbo.PostCategories(post_id, category_id)
+SELECT @PostId2, category_id FROM dbo.ContentCategories WHERE slug = N'thien-dinh';
+
+-- PostTags
+INSERT INTO dbo.PostTags(post_id, tag_id)
+SELECT @PostId2, tag_id FROM dbo.Tags WHERE slug IN (N'meditation', N'breathing');
+
+-- PostStats
+INSERT INTO dbo.PostStats(post_id, view_count, like_count)
+VALUES (@PostId2, 0, 0);
+
+-- PostLikes
+INSERT INTO dbo.PostLikes(user_id, post_id)
+SELECT TOP 2 user_id, @PostId2 FROM dbo.Users ORDER BY user_id;
+
+-- PostViews
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash)
+SELECT TOP 3 user_id, @PostId2, CONCAT(N'ip_u', user_id, N'_p2') FROM dbo.Users ORDER BY user_id;
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash) VALUES (NULL, @PostId2, N'ip_guest_p2');
+
+------------------------------------------------------------
+-- BÀI VIẾT #3: Dinh dưỡng và chu kỳ kinh nguyệt (Premium)
+------------------------------------------------------------
+INSERT INTO dbo.Posts (
+  expert_id, title, summary, content, thumbnail_url,
+  is_premium, status, published_at
+)
+VALUES (
+  NULL,
+  N'Dinh Dưỡng Theo Chu Kỳ Kinh Nguyệt: Ăn Gì Mỗi Giai Đoạn?',
+  N'Hướng dẫn chi tiết về chế độ ăn phù hợp với từng giai đoạn trong chu kỳ kinh nguyệt.',
+  N'<h2>Tại sao dinh dưỡng quan trọng với chu kỳ?</h2>
+<p>Hormone thay đổi theo chu kỳ kinh nguyệt, và chế độ ăn phù hợp có thể giúp giảm các triệu chứng khó chịu.</p>
+
+<h2>Giai đoạn 1: Ngày hành kinh (ngày 1-5)</h2>
+<p><strong>Nên ăn:</strong> Thực phẩm giàu sắt (thịt đỏ, rau xanh đậm), omega-3 (cá hồi, hạt chia)</p>
+<p><strong>Hạn chế:</strong> Caffeine, muối, đồ chiên rán</p>
+
+<h2>Giai đoạn 2: Sau hành kinh (ngày 6-14)</h2>
+<p><strong>Nên ăn:</strong> Protein nạc, rau củ tươi, ngũ cốc nguyên hạt</p>
+<p>Đây là thời điểm năng lượng cao, phù hợp để tập luyện cường độ cao.</p>
+
+<h2>Giai đoạn 3: Rụng trứng (ngày 14-17)</h2>
+<p><strong>Nên ăn:</strong> Rau cruciferous (bông cải, cải xoăn), trái cây tươi</p>
+<p>Estrogen đạt đỉnh, cơ thể cần chất xơ để chuyển hóa hormone.</p>
+
+<h2>Giai đoạn 4: Trước hành kinh (ngày 18-28)</h2>
+<p><strong>Nên ăn:</strong> Carbs phức hợp (khoai lang, yến mạch), magie (sô cô la đen, hạnh nhân)</p>
+<p><strong>Hạn chế:</strong> Đường, rượu bia để giảm triệu chứng PMS.</p>',
+  N'https://picsum.photos/400/300?random=103',
+  1, -- Premium content
+  N'published',
+  '2025-01-12'
+);
+
+DECLARE @PostId3 INT = SCOPE_IDENTITY();
+
+-- PostCategories (cả 2 category)
+INSERT INTO dbo.PostCategories(post_id, category_id)
+SELECT @PostId3, category_id FROM dbo.ContentCategories WHERE slug IN (N'quan-ly-stress', N'thien-dinh');
+
+-- PostTags
+INSERT INTO dbo.PostTags(post_id, tag_id)
+SELECT @PostId3, tag_id FROM dbo.Tags WHERE slug = N'stress';
+
+-- PostStats
+INSERT INTO dbo.PostStats(post_id, view_count, like_count)
+VALUES (@PostId3, 0, 0);
+
+-- PostLikes
+INSERT INTO dbo.PostLikes(user_id, post_id)
+SELECT TOP 3 user_id, @PostId3 FROM dbo.Users ORDER BY user_id;
+
+-- PostViews
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash)
+SELECT TOP 3 user_id, @PostId3, CONCAT(N'ip_u', user_id, N'_p3') FROM dbo.Users ORDER BY user_id;
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash) VALUES (NULL, @PostId3, N'ip_guest_p3_1');
+INSERT INTO dbo.PostViews(user_id, post_id, ip_hash) VALUES (NULL, @PostId3, N'ip_guest_p3_2');
+
+------------------------------------------------------------
+-- SYNC STATS = COUNT(VIEWS/LIKES) cho Posts
+------------------------------------------------------------
+UPDATE s
+SET
+  s.view_count = v.cnt,
+  s.like_count = l.cnt,
+  s.updated_at = SYSUTCDATETIME()
+FROM dbo.PostStats s
+OUTER APPLY (SELECT COUNT(*) cnt FROM dbo.PostViews pv WHERE pv.post_id = s.post_id) v
+OUTER APPLY (SELECT COUNT(*) cnt FROM dbo.PostLikes pl WHERE pl.post_id = s.post_id) l
+WHERE s.post_id IN (@PostId1, @PostId2, @PostId3);
+
+------------------------------------------------------------
+-- UPDATE THUMBNAIL URLs TO PICSUM cho Videos
+------------------------------------------------------------
+UPDATE dbo.Videos
+SET thumbnail_url = CONCAT('https://picsum.photos/400/300?random=', video_id);
+
+COMMIT;
+
+-- Xem kết quả Posts
+SELECT p.post_id, p.title, p.status, p.is_premium, s.view_count, s.like_count
+FROM dbo.Posts p
+LEFT JOIN dbo.PostStats s ON s.post_id = p.post_id
+WHERE p.post_id IN (@PostId1, @PostId2, @PostId3);

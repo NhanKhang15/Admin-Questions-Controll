@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Admin - Manage Videos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">V</div>
+        <div class="brand-text">
+          <div class="brand-name">VideoCMS</div>
+          <div class="brand-sub">Admin Panel</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav-item active" href="#">
+          <span class="dot"></span>
+          Quản lý Video
+        </a>
+        <a class="nav-item" href="#">
+          <span class="dot"></span>
+          Quản lý Bài viết
+        </a>
+        <a class="nav-item" href="#">
+          <span class="dot"></span>
+          Chuyên gia
+        </a>
+        <a class="nav-item" href="#">
+          <span class="dot"></span>
+          Danh mục & Tag
+        </a>
+        <a class="nav-item" href="#">
+          <span class="dot"></span>
+          Người dùng
+        </a>
+        <a class="nav-item" href="#">
+          <span class="dot"></span>
+          Subscription (VIP)
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="mini-card">
+          <div class="mini-title">Quick tip</div>
+          <div class="mini-text">Tách stats ra bảng riêng để tối ưu.</div>
+        </div>
+        <button class="btn ghost full">Đăng xuất</button>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div class="page-title">
+          <h1>Quản lý Video</h1>
+          <p>Danh sách video ngắn + video chuyên gia</p>
+        </div>
+
+        <div class="top-actions">
+          <div class="pill">
+            <span class="pill-dot"></span>
+            Online
+          </div>
+          <div class="avatar">
+            <span>AD</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- STATS -->
+      <section class="stats">
+        <div class="stat-card">
+          <div class="stat-label">Tổng video</div>
+          <div class="stat-value">128</div>
+          <div class="stat-sub">+6 tuần này</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Video Premium</div>
+          <div class="stat-value">42</div>
+          <div class="stat-sub">32.8%</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Tổng lượt xem</div>
+          <div class="stat-value">1.2M</div>
+          <div class="stat-sub">7 ngày gần nhất</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Like trung bình</div>
+          <div class="stat-value">356</div>
+          <div class="stat-sub">/ video</div>
+        </div>
+      </section>
+
+      <!-- TOOLBAR -->
+      <section class="toolbar">
+        <div class="search">
+          <input type="text" placeholder="Tìm video theo tiêu đề, chuyên gia..." />
+          <span class="search-icon">⌕</span>
+        </div>
+
+        <div class="filters">
+          <select>
+            <option>Loại: Tất cả</option>
+            <option>Video ngắn</option>
+            <option>Video chuyên gia</option>
+          </select>
+
+          <select>
+            <option>Premium: Tất cả</option>
+            <option>Free</option>
+            <option>Premium</option>
+          </select>
+
+          <select>
+            <option>Trạng thái: Tất cả</option>
+            <option>Published</option>
+            <option>Draft</option>
+            <option>Hidden</option>
+          </select>
+
+          <a class="btn primary" href="#modal">
+            + Thêm video
+          </a>
+        </div>
+      </section>
+
+      <!-- TABLE -->
+      <section class="card">
+        <div class="card-head">
+          <div class="card-title">Danh sách video</div>
+          <div class="card-note">Hiển thị 10 / 128</div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Video</th>
+                <th>Chuyên gia</th>
+                <th>Danh mục</th>
+                <th>Loại</th>
+                <th>Premium</th>
+                <th>Duration</th>
+                <th>Views</th>
+                <th>Likes</th>
+                <th>Publish</th>
+                <th>Status</th>
+                <th class="th-actions">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="td-video">
+                  <div class="video-cell">
+                    <div class="thumb" aria-label="thumbnail"></div>
+                    <div class="video-meta">
+                      <div class="title">Kỹ thuật thở để giảm căng thẳng ngay lập tức</div>
+                      <div class="sub">#stress #tamly • ID: 1021</div>
+                    </div>
+                  </div>
+                </td>
+                <td>ThS. Nguyễn Mai Linh</td>
+                <td><span class="chip">Quản lý stress</span></td>
+                <td><span class="chip soft">Video ngắn</span></td>
+                <td><span class="chip warn">Premium</span></td>
+                <td>02:05</td>
+                <td>2.3k</td>
+                <td>234</td>
+                <td>12/01/2025</td>
+                <td><span class="badge ok">Published</span></td>
+                <td class="td-actions">
+                  <a class="btn small" href="#modal">Edit</a>
+                  <button class="btn small danger" type="button">Delete</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="td-video">
+                  <div class="video-cell">
+                    <div class="thumb t2"></div>
+                    <div class="video-meta">
+                      <div class="title">Giảm stress hiệu quả trong 5 phút</div>
+                      <div class="sub">#relax #breathing • ID: 1022</div>
+                    </div>
+                  </div>
+                </td>
+                <td>ThS. Nguyễn Mai Linh</td>
+                <td><span class="chip">Tâm lý học</span></td>
+                <td><span class="chip soft">Video chuyên gia</span></td>
+                <td><span class="chip">Free</span></td>
+                <td>01:38</td>
+                <td>5.2k</td>
+                <td>698</td>
+                <td>12/01/2025</td>
+                <td><span class="badge ok">Published</span></td>
+                <td class="td-actions">
+                  <a class="btn small" href="#modal">Edit</a>
+                  <button class="btn small danger" type="button">Delete</button>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="td-video">
+                  <div class="video-cell">
+                    <div class="thumb t3"></div>
+                    <div class="video-meta">
+                      <div class="title">Thiền cơ bản cho người mới bắt đầu</div>
+                      <div class="sub">#meditation • ID: 1023</div>
+                    </div>
+                  </div>
+                </td>
+                <td>ThS. Nguyễn Mai Linh</td>
+                <td><span class="chip">Thiền định</span></td>
+                <td><span class="chip soft">Video ngắn</span></td>
+                <td><span class="chip warn">Premium</span></td>
+                <td>03:12</td>
+                <td>1.1k</td>
+                <td>120</td>
+                <td>11/01/2025</td>
+                <td><span class="badge">Draft</span></td>
+                <td class="td-actions">
+                  <a class="btn small" href="#modal">Edit</a>
+                  <button class="btn small danger" type="button">Delete</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <div class="muted">Trang 1 / 13</div>
+          <div class="pager">
+            <button class="btn small" type="button">← Prev</button>
+            <button class="btn small" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODAL (CSS only) -->
+      <div id="modal" class="modal">
+        <a class="overlay" href="#"></a>
+
+        <div class="modal-card">
+          <div class="modal-head">
+            <div>
+              <div class="modal-title">Thêm / Sửa video</div>
+              <div class="modal-sub">UI demo (HTML + CSS)</div>
+            </div>
+            <a class="btn small" href="#">✕</a>
+          </div>
+
+          <form class="form">
+            <div class="grid">
+              <label class="field">
+                <span>Tiêu đề</span>
+                <input type="text" placeholder="VD: Kỹ thuật thở giảm stress..." />
+              </label>
+
+              <label class="field">
+                <span>Chuyên gia</span>
+                <select>
+                  <option>ThS. Nguyễn Mai Linh</option>
+                  <option>TS. ABC</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Loại video</span>
+                <select>
+                  <option>Video ngắn</option>
+                  <option>Video chuyên gia</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Danh mục</span>
+                <select>
+                  <option>Quản lý stress</option>
+                  <option>Tâm lý học</option>
+                  <option>Thiền định</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Premium</span>
+                <select>
+                  <option>Free</option>
+                  <option>Premium</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Duration (giây)</span>
+                <input type="number" min="0" placeholder="VD: 125" />
+              </label>
+
+              <label class="field span-2">
+                <span>Thumbnail URL</span>
+                <input type="text" placeholder="https://..." />
+              </label>
+
+              <label class="field span-2">
+                <span>Video URL</span>
+                <input type="text" placeholder="https://..." />
+              </label>
+
+              <label class="field span-2">
+                <span>Mô tả</span>
+                <textarea rows="4" placeholder="Nội dung mô tả video..."></textarea>
+              </label>
+
+              <label class="field span-2">
+                <span>Tags (phân tách bằng dấu phẩy)</span>
+                <input type="text" placeholder="#stress, #tamly, #breathing" />
+              </label>
+
+              <label class="field">
+                <span>Publish date</span>
+                <input type="date" />
+              </label>
+
+              <label class="field">
+                <span>Status</span>
+                <select>
+                  <option>Published</option>
+                  <option>Draft</option>
+                  <option>Hidden</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <a class="btn" href="#">Cancel</a>
+              <button class="btn primary" type="button">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</body>
+</html>
