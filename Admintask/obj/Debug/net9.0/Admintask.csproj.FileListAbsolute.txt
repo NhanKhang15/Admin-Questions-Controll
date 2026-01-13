@@ -228,3 +228,5 @@ E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\compressed\7n07g8n8m5-gohb
 E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\compressed\el4pt2po2k-5ucn8yv64x.gz
 E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\compressed\2q2jgwqimp-342cr1u8hw.gz
 E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\compressed\8y6y2chpcn-uuaip67ob6.gz
+E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\Admintask.sourcelink.json
+E:\Admin_Question_Controll\Admintask\obj\Debug\net9.0\compressed\oh7qhdaxwz-32y33034xf.gz

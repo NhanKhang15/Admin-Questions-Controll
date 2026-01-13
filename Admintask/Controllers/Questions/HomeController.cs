@@ -522,5 +522,18 @@ namespace AdminPortal.Controllers
                     score = scoreTab 
                 });
         }
+
+        // -----------------------------
+        // VIDEO & POST MANAGEMENT
+        // -----------------------------
+        public IActionResult ManageVideo()
+        {
+            return View("Manage_Video_Post/video");
+        }
+
+        public IActionResult ManagePost()
+        {
+            return View("Manage_Video_Post/post");
+        }
     }
 }

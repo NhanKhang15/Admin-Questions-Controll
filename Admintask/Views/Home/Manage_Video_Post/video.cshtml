@@ -1,0 +1,485 @@
+@{
+    ViewData["Title"] = "Quản lý Video";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/video-post.css" asp-append-version="true" />
+}
+
+<h1 class="page-title">Quản lý Video</h1>
+<p class="page-sub">Danh sách video ngắn + video chuyên gia</p>
+
+<!-- STATS -->
+<section class="stats" id="statsSection">
+    <div class="stat-card">
+        <div class="stat-label">Tổng video</div>
+        <div class="stat-value" id="statTotal">--</div>
+        <div class="stat-sub" id="statNew">Đang tải...</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Video Premium</div>
+        <div class="stat-value" id="statPremium">--</div>
+        <div class="stat-sub" id="statPremiumPct">--%</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Tổng lượt xem</div>
+        <div class="stat-value" id="statViews">--</div>
+        <div class="stat-sub">Tất cả thời gian</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Like trung bình</div>
+        <div class="stat-value" id="statAvgLikes">--</div>
+        <div class="stat-sub">/ video</div>
+    </div>
+</section>
+
+<!-- TOOLBAR -->
+<section class="toolbar">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm video theo tiêu đề..." />
+        <span class="search-icon">⌕</span>
+    </div>
+
+    <div class="filters">
+        <select id="filterType">
+            <option value="">Loại: Tất cả</option>
+            <option value="short">Video ngắn</option>
+            <option value="expert">Video chuyên gia</option>
+        </select>
+
+        <select id="filterPremium">
+            <option value="">Premium: Tất cả</option>
+            <option value="false">Free</option>
+            <option value="true">Premium</option>
+        </select>
+
+        <select id="filterStatus">
+            <option value="">Trạng thái: Tất cả</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="hidden">Hidden</option>
+        </select>
+
+        <button class="btn btn-primary" id="btnAddVideo">+ Thêm video</button>
+    </div>
+</section>
+
+<!-- TABLE -->
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">Danh sách video</div>
+        <div class="card-note" id="tableNote">Đang tải...</div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Video</th>
+                    <th>Chuyên gia</th>
+                    <th>Danh mục</th>
+                    <th>Loại</th>
+                    <th>Premium</th>
+                    <th>Duration</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Publish</th>
+                    <th>Status</th>
+                    <th class="th-actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="videoTableBody">
+                <tr>
+                    <td colspan="11" class="text-center">Đang tải dữ liệu...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-footer">
+        <div class="muted" id="pagerInfo">Trang 1 / 1</div>
+        <div class="pager">
+            <button class="btn btn-small" type="button" id="btnPrev">← Prev</button>
+            <button class="btn btn-small" type="button" id="btnNext">Next →</button>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL -->
+<div id="videoModal" class="modal" aria-hidden="true">
+    <div class="overlay" data-modal-close></div>
+
+    <div class="modal-card">
+        <div class="modal-head">
+            <div>
+                <div class="modal-title" id="modalTitle">Thêm video mới</div>
+                <div class="modal-sub">Nhập thông tin video</div>
+            </div>
+            <button class="btn btn-small" data-modal-close>✕</button>
+        </div>
+
+        <form class="form" id="videoForm">
+            <input type="hidden" id="videoId" />
+            <div class="grid">
+                <label class="field span-2">
+                    <span>Tiêu đề *</span>
+                    <input type="text" id="fTitle" required placeholder="VD: Kỹ thuật thở giảm stress..." />
+                </label>
+
+                <label class="field">
+                    <span>Chuyên gia</span>
+                    <select id="fExpertId">
+                        <option value="">-- Chọn chuyên gia --</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    <span>Loại video</span>
+                    <select id="fIsShort">
+                        <option value="true">Video ngắn</option>
+                        <option value="false">Video chuyên gia</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    <span>Premium</span>
+                    <select id="fIsPremium">
+                        <option value="false">Free</option>
+                        <option value="true">Premium</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    <span>Duration (giây)</span>
+                    <input type="number" id="fDuration" min="0" placeholder="VD: 125" />
+                </label>
+
+                <label class="field span-2">
+                    <span>Thumbnail URL</span>
+                    <input type="text" id="fThumbnail" placeholder="https://..." />
+                </label>
+
+                <label class="field span-2">
+                    <span>Video URL *</span>
+                    <input type="text" id="fVideoUrl" required placeholder="https://..." />
+                </label>
+
+                <label class="field span-2">
+                    <span>Mô tả</span>
+                    <textarea rows="3" id="fDescription" placeholder="Nội dung mô tả video..."></textarea>
+                </label>
+
+                <label class="field">
+                    <span>Publish date</span>
+                    <input type="date" id="fPublishDate" />
+                </label>
+
+                <label class="field">
+                    <span>Status</span>
+                    <select id="fStatus">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn" type="button" data-modal-close>Cancel</button>
+                <button class="btn btn-primary" type="submit" id="btnSave">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+const API_BASE = '/api';
+let currentPage = 1;
+let totalPages = 1;
+let experts = [];
+let categories = [];
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    loadExperts();
+    loadVideos();
+    setupEventListeners();
+});
+
+// ===== LOAD STATS =====
+async function loadStats() {
+    try {
+        const res = await fetch(`${API_BASE}/videos/stats`);
+        const data = await res.json();
+        document.getElementById('statTotal').textContent = data.totalVideos;
+        document.getElementById('statPremium').textContent = data.premiumVideos;
+        document.getElementById('statPremiumPct').textContent = `${data.premiumPercent}%`;
+        document.getElementById('statViews').textContent = formatNumber(data.totalViews);
+        document.getElementById('statAvgLikes').textContent = Math.round(data.avgLikesPerVideo);
+        document.getElementById('statNew').textContent = `+${data.newVideosThisWeek} tuần này`;
+    } catch (e) {
+        console.error('Load stats error:', e);
+    }
+}
+
+// ===== LOAD EXPERTS =====
+async function loadExperts() {
+    try {
+        const res = await fetch(`${API_BASE}/experts`);
+        experts = await res.json();
+        const sel = document.getElementById('fExpertId');
+        sel.innerHTML = '<option value="">-- Chọn chuyên gia --</option>';
+        experts.forEach(e => {
+            sel.innerHTML += `<option value="${e.expertId}">${e.name}</option>`;
+        });
+    } catch (e) {
+        console.error('Load experts error:', e);
+    }
+}
+
+// ===== LOAD VIDEOS =====
+async function loadVideos() {
+    const search = document.getElementById('searchInput').value;
+    const type = document.getElementById('filterType').value;
+    const isPremium = document.getElementById('filterPremium').value;
+    const status = document.getElementById('filterStatus').value;
+
+    let url = `${API_BASE}/videos?page=${currentPage}&pageSize=10`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (type) url += `&type=${type}`;
+    if (isPremium) url += `&isPremium=${isPremium}`;
+    if (status) url += `&status=${status}`;
+
+    try {
+        const res = await fetch(url);
+        const result = await res.json();
+        renderTable(result.data);
+        totalPages = result.pagination.totalPages || 1;
+        document.getElementById('tableNote').textContent = 
+            `Hiển thị ${result.data.length} / ${result.pagination.totalItems}`;
+        document.getElementById('pagerInfo').textContent = 
+            `Trang ${currentPage} / ${totalPages}`;
+    } catch (e) {
+        console.error('Load videos error:', e);
+        document.getElementById('videoTableBody').innerHTML = 
+            '<tr><td colspan="11" class="text-center">Lỗi tải dữ liệu</td></tr>';
+    }
+}
+
+// ===== RENDER TABLE =====
+function renderTable(videos) {
+    const tbody = document.getElementById('videoTableBody');
+    if (!videos || videos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="11" class="text-center">Không có video nào</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = videos.map(v => `
+        <tr data-id="${v.videoId}">
+            <td class="td-video">
+                <div class="video-cell">
+                    <div class="thumb" style="${v.thumbnailUrl ? `background-image:url('${v.thumbnailUrl}');background-size:cover;` : ''}"></div>
+                    <div class="video-meta">
+                        <div class="title">${escapeHtml(v.title)}</div>
+                        <div class="sub">${v.tags.map(t => '#' + t.name).join(' ')} • ID: ${v.videoId}</div>
+                    </div>
+                </div>
+            </td>
+            <td>${v.expert?.name || '-'}</td>
+            <td>${v.categories.map(c => `<span class="chip">${c.name}</span>`).join(' ') || '-'}</td>
+            <td><span class="chip soft">${v.isShort ? 'Video ngắn' : 'Video chuyên gia'}</span></td>
+            <td><span class="chip ${v.isPremium ? 'warn' : ''}">${v.isPremium ? 'Premium' : 'Free'}</span></td>
+            <td>${formatDuration(v.durationSeconds)}</td>
+            <td>${formatNumber(v.stats?.viewCount || 0)}</td>
+            <td>${formatNumber(v.stats?.likeCount || 0)}</td>
+            <td>${v.publishedAt ? new Date(v.publishedAt).toLocaleDateString('vi-VN') : '-'}</td>
+            <td><span class="badge ${v.status === 'published' ? 'ok' : ''}">${v.status}</span></td>
+            <td class="td-actions">
+                <button class="btn btn-small btn-edit" data-id="${v.videoId}">Edit</button>
+                <button class="btn btn-small btn-danger btn-delete" data-id="${v.videoId}">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ===== EVENT LISTENERS =====
+function setupEventListeners() {
+    // Modal
+    document.querySelectorAll('[data-modal-close]').forEach(el => {
+        el.addEventListener('click', () => closeModal());
+    });
+
+    // Add button
+    document.getElementById('btnAddVideo').addEventListener('click', () => openModal());
+
+    // Form submit
+    document.getElementById('videoForm').addEventListener('submit', handleSubmit);
+
+    // Filters
+    ['searchInput', 'filterType', 'filterPremium', 'filterStatus'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+            currentPage = 1;
+            loadVideos();
+        });
+    });
+    document.getElementById('searchInput').addEventListener('keyup', debounce(() => {
+        currentPage = 1;
+        loadVideos();
+    }, 300));
+
+    // Pagination
+    document.getElementById('btnPrev').addEventListener('click', () => {
+        if (currentPage > 1) { currentPage--; loadVideos(); }
+    });
+    document.getElementById('btnNext').addEventListener('click', () => {
+        if (currentPage < totalPages) { currentPage++; loadVideos(); }
+    });
+
+    // Edit/Delete buttons (event delegation)
+    document.getElementById('videoTableBody').addEventListener('click', async (e) => {
+        const editBtn = e.target.closest('.btn-edit');
+        const deleteBtn = e.target.closest('.btn-delete');
+        
+        if (editBtn) {
+            const id = editBtn.dataset.id;
+            await openEditModal(id);
+        }
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            if (confirm('Bạn có chắc muốn xóa video này?')) {
+                await deleteVideo(id);
+            }
+        }
+    });
+}
+
+// ===== MODAL HANDLERS =====
+function openModal() {
+    document.getElementById('videoId').value = '';
+    document.getElementById('videoForm').reset();
+    document.getElementById('modalTitle').textContent = 'Thêm video mới';
+    document.getElementById('videoModal').setAttribute('aria-hidden', 'false');
+}
+
+async function openEditModal(id) {
+    try {
+        const res = await fetch(`${API_BASE}/videos/${id}`);
+        const v = await res.json();
+        
+        document.getElementById('videoId').value = v.videoId;
+        document.getElementById('fTitle').value = v.title;
+        document.getElementById('fExpertId').value = v.expert?.expertId || '';
+        document.getElementById('fIsShort').value = v.isShort.toString();
+        document.getElementById('fIsPremium').value = v.isPremium.toString();
+        document.getElementById('fDuration').value = v.durationSeconds;
+        document.getElementById('fThumbnail').value = v.thumbnailUrl || '';
+        document.getElementById('fVideoUrl').value = v.videoUrl;
+        document.getElementById('fDescription').value = v.description || '';
+        document.getElementById('fPublishDate').value = v.publishedAt ? v.publishedAt.split('T')[0] : '';
+        document.getElementById('fStatus').value = v.status;
+        
+        document.getElementById('modalTitle').textContent = 'Sửa video';
+        document.getElementById('videoModal').setAttribute('aria-hidden', 'false');
+    } catch (e) {
+        console.error('Load video error:', e);
+        alert('Không thể tải thông tin video');
+    }
+}
+
+function closeModal() {
+    document.getElementById('videoModal').setAttribute('aria-hidden', 'true');
+}
+
+// ===== FORM SUBMIT =====
+async function handleSubmit(e) {
+    e.preventDefault();
+    
+    const id = document.getElementById('videoId').value;
+    const data = {
+        title: document.getElementById('fTitle').value,
+        expertId: document.getElementById('fExpertId').value ? parseInt(document.getElementById('fExpertId').value) : null,
+        isShort: document.getElementById('fIsShort').value === 'true',
+        isPremium: document.getElementById('fIsPremium').value === 'true',
+        durationSeconds: parseInt(document.getElementById('fDuration').value) || 0,
+        thumbnailUrl: document.getElementById('fThumbnail').value || null,
+        videoUrl: document.getElementById('fVideoUrl').value,
+        description: document.getElementById('fDescription').value || null,
+        publishedAt: document.getElementById('fPublishDate').value || null,
+        status: document.getElementById('fStatus').value,
+        categoryIds: [],
+        tagIds: []
+    };
+
+    try {
+        const url = id ? `${API_BASE}/videos/${id}` : `${API_BASE}/videos`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const res = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+            closeModal();
+            loadVideos();
+            loadStats();
+            alert(id ? 'Đã cập nhật video!' : 'Đã tạo video mới!');
+        } else {
+            const err = await res.text();
+            alert('Lỗi: ' + err);
+        }
+    } catch (e) {
+        console.error('Save error:', e);
+        alert('Có lỗi xảy ra khi lưu');
+    }
+}
+
+// ===== DELETE =====
+async function deleteVideo(id) {
+    try {
+        const res = await fetch(`${API_BASE}/videos/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            loadVideos();
+            loadStats();
+            alert('Đã xóa video!');
+        } else {
+            alert('Không thể xóa video');
+        }
+    } catch (e) {
+        console.error('Delete error:', e);
+        alert('Có lỗi xảy ra');
+    }
+}
+
+// ===== HELPERS =====
+function formatNumber(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    return n.toString();
+}
+
+function formatDuration(sec) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function debounce(fn, ms) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), ms);
+    };
+}
+</script>
+}

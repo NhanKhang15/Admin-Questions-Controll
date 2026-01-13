@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Admintask")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+784bfb0d470b0600a98955517c9699839befa457")]
 [assembly: System.Reflection.AssemblyProductAttribute("Admintask")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Admintask")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

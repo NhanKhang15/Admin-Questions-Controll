@@ -1,0 +1,449 @@
+@{
+    ViewData["Title"] = "Quản lý Bài viết";
+    Layout = "_Layout";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/video-post.css" asp-append-version="true" />
+}
+
+<h1 class="page-title">Quản lý Bài viết</h1>
+<p class="page-sub">Danh sách bài viết và nội dung</p>
+
+<!-- STATS -->
+<section class="stats" id="statsSection">
+    <div class="stat-card">
+        <div class="stat-label">Tổng bài viết</div>
+        <div class="stat-value" id="statTotal">--</div>
+        <div class="stat-sub" id="statNew">Đang tải...</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Bài viết Premium</div>
+        <div class="stat-value" id="statPremium">--</div>
+        <div class="stat-sub" id="statPremiumPct">--%</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Tổng lượt đọc</div>
+        <div class="stat-value" id="statViews">--</div>
+        <div class="stat-sub">Tất cả thời gian</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Like trung bình</div>
+        <div class="stat-value" id="statAvgLikes">--</div>
+        <div class="stat-sub">/ bài viết</div>
+    </div>
+</section>
+
+<!-- TOOLBAR -->
+<section class="toolbar">
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Tìm bài viết theo tiêu đề..." />
+        <span class="search-icon">⌕</span>
+    </div>
+
+    <div class="filters">
+        <select id="filterPremium">
+            <option value="">Premium: Tất cả</option>
+            <option value="false">Free</option>
+            <option value="true">Premium</option>
+        </select>
+
+        <select id="filterStatus">
+            <option value="">Trạng thái: Tất cả</option>
+            <option value="published">Published</option>
+            <option value="draft">Draft</option>
+            <option value="hidden">Hidden</option>
+        </select>
+
+        <button class="btn btn-primary" id="btnAddPost">+ Thêm bài viết</button>
+    </div>
+</section>
+
+<!-- TABLE -->
+<section class="card">
+    <div class="card-head">
+        <div class="card-title">Danh sách bài viết</div>
+        <div class="card-note" id="tableNote">Đang tải...</div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Bài viết</th>
+                    <th>Tác giả</th>
+                    <th>Danh mục</th>
+                    <th>Premium</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Publish</th>
+                    <th>Status</th>
+                    <th class="th-actions">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="postTableBody">
+                <tr>
+                    <td colspan="9" class="text-center">Đang tải dữ liệu...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-footer">
+        <div class="muted" id="pagerInfo">Trang 1 / 1</div>
+        <div class="pager">
+            <button class="btn btn-small" type="button" id="btnPrev">← Prev</button>
+            <button class="btn btn-small" type="button" id="btnNext">Next →</button>
+        </div>
+    </div>
+</section>
+
+<!-- MODAL -->
+<div id="postModal" class="modal" aria-hidden="true">
+    <div class="overlay" data-modal-close></div>
+
+    <div class="modal-card">
+        <div class="modal-head">
+            <div>
+                <div class="modal-title" id="modalTitle">Thêm bài viết mới</div>
+                <div class="modal-sub">Nhập thông tin bài viết</div>
+            </div>
+            <button class="btn btn-small" data-modal-close>✕</button>
+        </div>
+
+        <form class="form" id="postForm">
+            <input type="hidden" id="postId" />
+            <div class="grid">
+                <label class="field span-2">
+                    <span>Tiêu đề *</span>
+                    <input type="text" id="fTitle" required placeholder="VD: Cách quản lý stress hiệu quả..." />
+                </label>
+
+                <label class="field">
+                    <span>Tác giả</span>
+                    <select id="fExpertId">
+                        <option value="">-- Chọn tác giả --</option>
+                    </select>
+                </label>
+
+                <label class="field">
+                    <span>Premium</span>
+                    <select id="fIsPremium">
+                        <option value="false">Free</option>
+                        <option value="true">Premium</option>
+                    </select>
+                </label>
+
+                <label class="field span-2">
+                    <span>Mô tả ngắn</span>
+                    <textarea rows="2" id="fSummary" placeholder="Tóm tắt nội dung bài viết..."></textarea>
+                </label>
+
+                <label class="field span-2">
+                    <span>Thumbnail URL</span>
+                    <input type="text" id="fThumbnail" placeholder="https://..." />
+                </label>
+
+                <label class="field span-2">
+                    <span>Nội dung bài viết *</span>
+                    <textarea rows="6" id="fContent" required placeholder="Nội dung chi tiết bài viết..."></textarea>
+                </label>
+
+                <label class="field">
+                    <span>Publish date</span>
+                    <input type="date" id="fPublishDate" />
+                </label>
+
+                <label class="field">
+                    <span>Status</span>
+                    <select id="fStatus">
+                        <option value="draft">Draft</option>
+                        <option value="published">Published</option>
+                        <option value="hidden">Hidden</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn" type="button" data-modal-close>Cancel</button>
+                <button class="btn btn-primary" type="submit" id="btnSave">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+const API_BASE = '/api';
+let currentPage = 1;
+let totalPages = 1;
+let experts = [];
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+    loadStats();
+    loadExperts();
+    loadPosts();
+    setupEventListeners();
+});
+
+// ===== LOAD STATS =====
+async function loadStats() {
+    try {
+        const res = await fetch(`${API_BASE}/posts/stats`);
+        const data = await res.json();
+        document.getElementById('statTotal').textContent = data.totalPosts;
+        document.getElementById('statPremium').textContent = data.premiumPosts;
+        document.getElementById('statPremiumPct').textContent = `${data.premiumPercent}%`;
+        document.getElementById('statViews').textContent = formatNumber(data.totalViews);
+        document.getElementById('statAvgLikes').textContent = Math.round(data.avgLikesPerPost);
+        document.getElementById('statNew').textContent = `+${data.newPostsThisWeek} tuần này`;
+    } catch (e) {
+        console.error('Load stats error:', e);
+    }
+}
+
+// ===== LOAD EXPERTS =====
+async function loadExperts() {
+    try {
+        const res = await fetch(`${API_BASE}/experts`);
+        experts = await res.json();
+        const sel = document.getElementById('fExpertId');
+        sel.innerHTML = '<option value="">-- Chọn tác giả --</option>';
+        experts.forEach(e => {
+            sel.innerHTML += `<option value="${e.expertId}">${e.name}</option>`;
+        });
+    } catch (e) {
+        console.error('Load experts error:', e);
+    }
+}
+
+// ===== LOAD POSTS =====
+async function loadPosts() {
+    const search = document.getElementById('searchInput').value;
+    const isPremium = document.getElementById('filterPremium').value;
+    const status = document.getElementById('filterStatus').value;
+
+    let url = `${API_BASE}/posts?page=${currentPage}&pageSize=10`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (isPremium) url += `&isPremium=${isPremium}`;
+    if (status) url += `&status=${status}`;
+
+    try {
+        const res = await fetch(url);
+        const result = await res.json();
+        renderTable(result.data);
+        totalPages = result.pagination.totalPages || 1;
+        document.getElementById('tableNote').textContent = 
+            `Hiển thị ${result.data.length} / ${result.pagination.totalItems}`;
+        document.getElementById('pagerInfo').textContent = 
+            `Trang ${currentPage} / ${totalPages}`;
+    } catch (e) {
+        console.error('Load posts error:', e);
+        document.getElementById('postTableBody').innerHTML = 
+            '<tr><td colspan="9" class="text-center">Lỗi tải dữ liệu</td></tr>';
+    }
+}
+
+// ===== RENDER TABLE =====
+function renderTable(posts) {
+    const tbody = document.getElementById('postTableBody');
+    if (!posts || posts.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center">Không có bài viết nào</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = posts.map(p => `
+        <tr data-id="${p.postId}">
+            <td class="td-video">
+                <div class="video-cell">
+                    <div class="thumb post-thumb" style="${p.thumbnailUrl ? `background-image:url('${p.thumbnailUrl}');background-size:cover;` : ''}"></div>
+                    <div class="video-meta">
+                        <div class="title">${escapeHtml(p.title)}</div>
+                        <div class="sub">${p.tags.map(t => '#' + t.name).join(' ')} • ID: ${p.postId}</div>
+                    </div>
+                </div>
+            </td>
+            <td>${p.expert?.name || '-'}</td>
+            <td>${p.categories.map(c => `<span class="chip">${c.name}</span>`).join(' ') || '-'}</td>
+            <td><span class="chip ${p.isPremium ? 'warn' : ''}">${p.isPremium ? 'Premium' : 'Free'}</span></td>
+            <td>${formatNumber(p.stats?.viewCount || 0)}</td>
+            <td>${formatNumber(p.stats?.likeCount || 0)}</td>
+            <td>${p.publishedAt ? new Date(p.publishedAt).toLocaleDateString('vi-VN') : '-'}</td>
+            <td><span class="badge ${p.status === 'published' ? 'ok' : ''}">${p.status}</span></td>
+            <td class="td-actions">
+                <button class="btn btn-small btn-edit" data-id="${p.postId}">Edit</button>
+                <button class="btn btn-small btn-danger btn-delete" data-id="${p.postId}">Delete</button>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ===== EVENT LISTENERS =====
+function setupEventListeners() {
+    // Modal
+    document.querySelectorAll('[data-modal-close]').forEach(el => {
+        el.addEventListener('click', () => closeModal());
+    });
+
+    // Add button
+    document.getElementById('btnAddPost').addEventListener('click', () => openModal());
+
+    // Form submit
+    document.getElementById('postForm').addEventListener('submit', handleSubmit);
+
+    // Filters
+    ['searchInput', 'filterPremium', 'filterStatus'].forEach(id => {
+        document.getElementById(id).addEventListener('change', () => {
+            currentPage = 1;
+            loadPosts();
+        });
+    });
+    document.getElementById('searchInput').addEventListener('keyup', debounce(() => {
+        currentPage = 1;
+        loadPosts();
+    }, 300));
+
+    // Pagination
+    document.getElementById('btnPrev').addEventListener('click', () => {
+        if (currentPage > 1) { currentPage--; loadPosts(); }
+    });
+    document.getElementById('btnNext').addEventListener('click', () => {
+        if (currentPage < totalPages) { currentPage++; loadPosts(); }
+    });
+
+    // Edit/Delete buttons (event delegation)
+    document.getElementById('postTableBody').addEventListener('click', async (e) => {
+        const editBtn = e.target.closest('.btn-edit');
+        const deleteBtn = e.target.closest('.btn-delete');
+        
+        if (editBtn) {
+            const id = editBtn.dataset.id;
+            await openEditModal(id);
+        }
+        if (deleteBtn) {
+            const id = deleteBtn.dataset.id;
+            if (confirm('Bạn có chắc muốn xóa bài viết này?')) {
+                await deletePost(id);
+            }
+        }
+    });
+}
+
+// ===== MODAL HANDLERS =====
+function openModal() {
+    document.getElementById('postId').value = '';
+    document.getElementById('postForm').reset();
+    document.getElementById('modalTitle').textContent = 'Thêm bài viết mới';
+    document.getElementById('postModal').setAttribute('aria-hidden', 'false');
+}
+
+async function openEditModal(id) {
+    try {
+        const res = await fetch(`${API_BASE}/posts/${id}`);
+        const p = await res.json();
+        
+        document.getElementById('postId').value = p.postId;
+        document.getElementById('fTitle').value = p.title;
+        document.getElementById('fExpertId').value = p.expert?.expertId || '';
+        document.getElementById('fIsPremium').value = p.isPremium.toString();
+        document.getElementById('fSummary').value = p.summary || '';
+        document.getElementById('fThumbnail').value = p.thumbnailUrl || '';
+        document.getElementById('fContent').value = p.content || '';
+        document.getElementById('fPublishDate').value = p.publishedAt ? p.publishedAt.split('T')[0] : '';
+        document.getElementById('fStatus').value = p.status;
+        
+        document.getElementById('modalTitle').textContent = 'Sửa bài viết';
+        document.getElementById('postModal').setAttribute('aria-hidden', 'false');
+    } catch (e) {
+        console.error('Load post error:', e);
+        alert('Không thể tải thông tin bài viết');
+    }
+}
+
+function closeModal() {
+    document.getElementById('postModal').setAttribute('aria-hidden', 'true');
+}
+
+// ===== FORM SUBMIT =====
+async function handleSubmit(e) {
+    e.preventDefault();
+    
+    const id = document.getElementById('postId').value;
+    const data = {
+        title: document.getElementById('fTitle').value,
+        expertId: document.getElementById('fExpertId').value ? parseInt(document.getElementById('fExpertId').value) : null,
+        isPremium: document.getElementById('fIsPremium').value === 'true',
+        summary: document.getElementById('fSummary').value || null,
+        thumbnailUrl: document.getElementById('fThumbnail').value || null,
+        content: document.getElementById('fContent').value,
+        publishedAt: document.getElementById('fPublishDate').value || null,
+        status: document.getElementById('fStatus').value,
+        categoryIds: [],
+        tagIds: []
+    };
+
+    try {
+        const url = id ? `${API_BASE}/posts/${id}` : `${API_BASE}/posts`;
+        const method = id ? 'PUT' : 'POST';
+        
+        const res = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+            closeModal();
+            loadPosts();
+            loadStats();
+            alert(id ? 'Đã cập nhật bài viết!' : 'Đã tạo bài viết mới!');
+        } else {
+            const err = await res.text();
+            alert('Lỗi: ' + err);
+        }
+    } catch (e) {
+        console.error('Save error:', e);
+        alert('Có lỗi xảy ra khi lưu');
+    }
+}
+
+// ===== DELETE =====
+async function deletePost(id) {
+    try {
+        const res = await fetch(`${API_BASE}/posts/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            loadPosts();
+            loadStats();
+            alert('Đã xóa bài viết!');
+        } else {
+            alert('Không thể xóa bài viết');
+        }
+    } catch (e) {
+        console.error('Delete error:', e);
+        alert('Có lỗi xảy ra');
+    }
+}
+
+// ===== HELPERS =====
+function formatNumber(n) {
+    if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'k';
+    return n.toString();
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+function debounce(fn, ms) {
+    let t;
+    return (...args) => {
+        clearTimeout(t);
+        t = setTimeout(() => fn(...args), ms);
+    };
+}
+</script>
+}
